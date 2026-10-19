@@ -42,16 +42,15 @@
         .time-group { display: flex; gap: 4px; flex: 1; min-width: 200px; }
         .time-group select { padding: 10px 4px; font-size: 13px; text-align: center; }
 
-        /* UI de Subida Limpia */
         .clean-upload { display: flex; gap: 10px; width: 100%; align-items: center; background: #FFF; padding: 8px; border-radius: 8px; border: 1px dashed var(--border);}
         .file-label { background: #EEF2FF; color: #4F46E5; padding: 10px 16px; border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer; white-space: nowrap;}
         .file-label:hover { background: #E0E7FF; }
         .clean-upload input[type="file"] { display: none; }
-        .clean-upload input[type="url"] { border: none; background: transparent; padding: 8px; font-size: 13px; width: 100%;}
+        .clean-upload input[type="url"] { border: none; background: transparent; padding: 8px; font-size: 13px; width: 100%; outline: none;}
         .file-name-display { font-size: 12px; color: var(--text-light); max-width: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
 
-        .btn-wa { background: var(--wa); color: white; border: none; padding: 8px 16px; border-radius: 8px; font-weight: 600; font-size: 13px; cursor: pointer; display: inline-flex; align-items: center; gap: 6px;}
-        .btn-doc { background: #F3F4F6; color: var(--text); border: 1px solid var(--border); padding: 6px 12px; border-radius: 8px; font-weight: 600; font-size: 12px; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; text-decoration: none;}
+        .btn-wa { background: var(--wa); color: white; border: none; padding: 6px 12px; border-radius: 6px; font-weight: 600; font-size: 12px; cursor: pointer; display: inline-flex; align-items: center; gap: 4px;}
+        .btn-doc { background: #F3F4F6; color: var(--text); border: 1px solid var(--border); padding: 6px 12px; border-radius: 6px; font-weight: 600; font-size: 12px; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; text-decoration: none;}
         .btn-doc:hover { background: #E5E7EB; }
         .btn-edit { background: transparent; color: var(--primary); border: none; font-size: 16px; cursor: pointer; padding: 4px;}
         .btn-del { background: transparent; color: var(--text-light); border: none; font-size: 18px; cursor: pointer; padding: 4px;}
@@ -82,14 +81,17 @@
         .balance-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px; margin-bottom: 24px; }
         .balance-card { padding: 16px; border-radius: 12px; border: 1px solid var(--border); text-align: center; }
         
-        .pack-checkboxes { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; padding-top: 8px; border-top: 1px dashed var(--border);}
-        .pack-person { font-size: 12px; display: flex; align-items: center; gap: 4px; background: #F3F4F6; padding: 4px 8px; border-radius: 6px;}
+        .pack-person { font-size: 13px; display: flex; align-items: center; gap: 6px;}
 
-        /* Bloque Logística Fija */
         .logistics-box { background: #111827; color: white; border-radius: 12px; padding: 16px; margin-bottom: 24px;}
         .logistics-box h3 { color: #34D399; margin-top:0; font-size:16px;}
-        .log-item { display:flex; justify-content:space-between; align-items:center; border-bottom: 1px solid #374151; padding: 8px 0;}
+        .log-item { display:flex; flex-direction:column; border-bottom: 1px solid #374151; padding: 12px 0; gap:8px;}
         .log-item:last-child { border-bottom: none;}
+
+        .section-header { font-size: 20px; font-weight: 700; color: var(--text); border-bottom: 2px solid var(--border); padding-bottom: 8px; margin: 30px 0 16px 0;}
+
+        .settlement-box { background: #111; color: white; padding: 20px; border-radius: 12px; margin-bottom: 30px; display: none;}
+        .settlement-box h4 { margin: 0 0 15px 0; color: #00A896;}
 
         @media (max-width: 600px) { .form-row input, .form-row select, .btn-add { min-width: 100%; flex: none; } }
     </style>
@@ -104,6 +106,7 @@
             </div>
             <div class="top-controls">
                 <span class="sync-badge" id="sync-status">🟡 Conectando...</span>
+                <!-- PEGA AQUÍ EL LINK DE GOOGLE PHOTOS O ICLOUD -->
                 <a href="AQUI_TU_LINK_DE_GOOGLE_PHOTOS" target="_blank" class="btn-gallery">📸 Fotos Grupo</a>
             </div>
         </div>
@@ -122,16 +125,15 @@
         <!-- 1: ITINERARIO Y LOGÍSTICA FIJA -->
         <div id="view-itinerary" class="view-section active card">
             
-            <!-- Logística Fija (No depende del día) -->
             <div class="logistics-box">
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
                     <h3>✈️ Vuelos y Hospedaje</h3>
-                    <button class="btn-edit" style="color:white; background:#374151; border-radius:6px; font-size:12px; padding:4px 8px;" onclick="document.getElementById('form-log').style.display='flex'">+ Agregar</button>
+                    <button class="btn-edit" style="color:white; background:#374151; border-radius:6px; font-size:12px; padding:6px 10px;" onclick="document.getElementById('form-log').style.display='flex'">+ Agregar</button>
                 </div>
                 
                 <div class="form-row" id="form-log" style="display:none; background:#1F2937; border-color:#374151;">
                     <select id="logCat"><option value="✈️ Vuelo">Vuelo</option><option value="🏠 Airbnb">Airbnb</option><option value="🚗 Auto">Auto</option><option value="🛡️ Seguro">Seguro</option></select>
-                    <input type="text" id="logText" placeholder="Detalle (Ej. Auto Alamo)" style="background:#374151; color:white; border:none;">
+                    <input type="text" id="logText" placeholder="Detalle (Ej. Vuelo Avianca)" style="background:#374151; color:white; border:none;">
                     <div class="clean-upload" style="background:#374151; border-color:#4B5563;">
                         <label class="file-label" style="background:#4B5563; color:white;">
                             Subir Archivo <input type="file" id="logFile" onchange="document.getElementById('logFileName').innerText=this.files[0].name">
@@ -139,7 +141,7 @@
                         <span id="logFileName" class="file-name-display" style="color:#9CA3AF;"></span>
                         <input type="url" id="logLink" placeholder="O pega el link aquí" style="color:white;">
                     </div>
-                    <button class="btn-add" id="btn-add-log" onclick="addLogistics()" style="background:#34D399; color:black;">Guardar</button>
+                    <button class="btn-add" id="btn-add-log" onclick="addLogistics()" style="background:#34D399; color:black;">Guardar Logística</button>
                 </div>
                 
                 <div id="logistics-content"></div>
@@ -154,47 +156,39 @@
             
             <div class="form-row">
                 <div class="time-group">
-                    <select id="itHour">
-                        <option value="01">01</option><option value="02">02</option><option value="03">03</option><option value="04">04</option><option value="05">05</option><option value="06">06</option><option value="07">07</option><option value="08" selected>08</option><option value="09">09</option><option value="10">10</option><option value="11">11</option><option value="12">12</option>
-                    </select>
+                    <select id="itHour"><option value="01">01</option><option value="02">02</option><option value="03">03</option><option value="04">04</option><option value="05">05</option><option value="06">06</option><option value="07">07</option><option value="08" selected>08</option><option value="09">09</option><option value="10">10</option><option value="11">11</option><option value="12">12</option></select>
                     <select id="itMin"><option value="00">00</option><option value="15">15</option><option value="30">30</option><option value="45">45</option></select>
                     <select id="itAmPm"><option value="AM">AM</option><option value="PM">PM</option></select>
                 </div>
                 <input type="text" id="itText" placeholder="Actividad o Tour">
                 <select id="itPerson"></select>
                 
-                <!-- Evidencia Opcional de la Actividad -->
                 <div class="clean-upload">
                     <label class="file-label">
-                        Subir Reserva <input type="file" id="itFile" onchange="document.getElementById('itFileName').innerText=this.files[0].name">
+                        Subir Archivo <input type="file" id="itFile" onchange="document.getElementById('itFileName').innerText=this.files[0].name">
                     </label>
                     <span id="itFileName" class="file-name-display"></span>
-                    <input type="url" id="itLink" placeholder="O pega el link (Opcional)">
+                    <input type="url" id="itLink" placeholder="O pega el link aquí (Opcional)">
                 </div>
 
                 <button class="btn-add" id="btn-add-it" onclick="addItinerary()" style="width:100%;">Añadir a Agenda</button>
             </div>
             
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
-                <h3 style="margin:0;">Agenda del Día</h3>
-                <button class="btn-wa" onclick="shareDayWhatsApp()">💬 Enviar Día por WA</button>
-            </div>
-
+            <h2 class="section-header">Actividades del Día</h2>
             <div id="it-content"></div>
+            
+            <button class="btn-wa" style="width:100%; justify-content:center; margin-top:16px; padding:12px;" onclick="shareDayWhatsApp()">💬 Enviar Agenda del Día al Grupo</button>
         </div>
 
-        <!-- 2: VOTACIONES -->
+        <!-- 2: VOTACIONES / RESERVAS PENDIENTES -->
         <div id="view-voting" class="view-section card">
-            
             <h3 style="margin-top:0;">Propuestas del Grupo</h3>
             <div class="form-row">
                 <select id="voteDay">
                     <option value="Lun 2 Nov">Lun 2 Nov</option><option value="Mar 3 Nov">Mar 3 Nov</option><option value="Mié 4 Nov">Mié 4 Nov</option><option value="Jue 5 Nov">Jue 5 Nov</option><option value="Vie 6 Nov">Vie 6 Nov</option><option value="Sáb 7 Nov">Sáb 7 Nov</option><option value="Dom 8 Nov">Dom 8 Nov</option><option value="Lun 9 Nov">Lun 9 Nov</option>
                 </select>
                 <div class="time-group">
-                    <select id="voteHour">
-                        <option value="01">01</option><option value="02">02</option><option value="03">03</option><option value="04">04</option><option value="05">05</option><option value="06">06</option><option value="07">07</option><option value="08">08</option><option value="09">09</option><option value="10">10</option><option value="11">11</option><option value="12">12</option>
-                    </select>
+                    <select id="voteHour"><option value="01">01</option><option value="02">02</option><option value="03">03</option><option value="04">04</option><option value="05">05</option><option value="06">06</option><option value="07">07</option><option value="08">08</option><option value="09">09</option><option value="10">10</option><option value="11">11</option><option value="12">12</option></select>
                     <select id="voteMin"><option value="00">00</option><option value="15">15</option><option value="30">30</option><option value="45">45</option></select>
                     <select id="voteAmPm"><option value="AM">AM</option><option value="PM">PM</option></select>
                 </div>
@@ -202,23 +196,28 @@
                 
                 <div class="clean-upload">
                     <label class="file-label">
-                        Link Menú/Info <input type="file" id="voteFile" onchange="document.getElementById('voteFileName').innerText=this.files[0].name">
+                        Subir Archivo <input type="file" id="voteFile" onchange="document.getElementById('voteFileName').innerText=this.files[0].name">
                     </label>
                     <span id="voteFileName" class="file-name-display"></span>
-                    <input type="url" id="voteLink" placeholder="O pega el link">
+                    <input type="url" id="voteLink" placeholder="O pega el link aquí">
                 </div>
 
                 <button class="btn-add" id="btn-add-vot" style="width:100%;" onclick="addVote()">Crear Propuesta</button>
             </div>
             <div id="vote-content"></div>
-
         </div>
 
         <!-- 3: EQUIPAJE -->
         <div id="view-packing" class="view-section card">
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
                 <h3 style="margin:0;">Equipaje</h3>
-                <button class="btn-wa" onclick="sharePackWhatsApp()">💬 Faltantes por WA</button>
+                <div style="display:flex; gap:8px; align-items:center;">
+                    <!-- FILTRO DE EQUIPAJE -->
+                    <select id="packFilter" onchange="renderPacking()" style="padding:6px; border-radius:6px; font-size:13px; border:1px solid var(--border);">
+                        <option value="Todos">Ver Todos</option>
+                    </select>
+                    <button class="btn-wa" onclick="sharePackWhatsApp()">💬 Faltantes por WA</button>
+                </div>
             </div>
             
             <div class="form-row">
@@ -239,7 +238,7 @@
 
         <!-- 4: SUPERMERCADO -->
         <div id="view-super" class="view-section card">
-            <h3 style="margin-top:0;">Lista de Compras (Airbnb)</h3>
+            <h3 style="margin-top:0;">Compras Pendientes (Airbnb)</h3>
             <div class="form-row">
                 <input type="text" id="supItem" placeholder="Ej. Agua, Huevos..." autocomplete="off">
                 <button class="btn-add" onclick="addSuper()">Agregar</button>
@@ -252,7 +251,6 @@
             
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
                 <h3 style="margin:0;">Cuentas Grupales</h3>
-                <!-- FILTRO MIS DEUDAS -->
                 <select id="debtFilter" onchange="renderExpenses()" style="padding:6px; border-radius:6px; font-size:13px; border:1px solid var(--border);">
                     <option value="Todos">Ver todos</option>
                 </select>
@@ -260,6 +258,10 @@
 
             <div class="balance-grid" id="balances-content"></div>
             
+            <button class="btn-wa" style="width:100%; justify-content:center; padding:12px; margin-bottom:24px; background:#111;" onclick="calculateSettlement()">💳 Calcular Liquidación Final</button>
+            <div class="settlement-box" id="settlement-box"></div>
+
+            <h3 style="margin-top:20px;">Registrar Nuevo Gasto</h3>
             <div class="form-row" style="margin-bottom: 24px;">
                 <input type="text" id="expConcept" placeholder="Concepto (Ej. Renta Jeep)" autocomplete="off">
                 <input type="number" id="expAmount" placeholder="Monto" step="0.01">
@@ -270,7 +272,8 @@
                 <select id="expPerson"></select>
                 <button class="btn-add" onclick="addExpense()">Registrar</button>
             </div>
-            <h3>Historial</h3>
+            
+            <h2 class="section-header">Historial de Pagos</h2>
             <div id="expenses-list"></div>
         </div>
 
@@ -301,7 +304,8 @@
                 document.getElementById('itPerson').add(new Option(p, p));
                 document.getElementById('expPerson').add(new Option(p, p));
                 document.getElementById('packPerson').add(new Option(p, p));
-                document.getElementById('debtFilter').add(new Option(`Solo lo mío (${p})`, p));
+                document.getElementById('debtFilter').add(new Option(`Solo lo de ${p}`, p));
+                document.getElementById('packFilter').add(new Option(`Solo lo de ${p}`, p));
             });
             renderDayNav(); renderAll(); syncWithCloud('GET'); 
         };
@@ -316,8 +320,10 @@
         function renderAll() { renderItinerary(); renderLogistics(); renderPacking(); renderSuper(); renderExpenses(); renderVoting(); }
         function setEdit(id) { editingId = id; renderAll(); }
         function cancelEdit() { editingId = null; renderAll(); }
+        function getCurrentDateTime() { const d = new Date(); return `${d.toLocaleDateString()} ${d.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}`; }
+        function sendWA(msg) { window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(msg)}`, '_blank'); }
 
-        // --- FUNCIONES DE ARCHIVOS ---
+        // --- SUBIDA DE ARCHIVOS ---
         function toBase64(file) { return new Promise((resolve, reject) => { const reader = new FileReader(); reader.readAsDataURL(file); reader.onload = () => resolve(reader.result); reader.onerror = e => reject(e); }); }
         
         async function handleUpload(fileInputId, linkInputId, btnId, defaultText) {
@@ -331,7 +337,7 @@
                     const file = fileInput.files[0]; const base64 = await toBase64(file);
                     const res = await fetch(GAS_WEB_APP_URL, { method: 'POST', headers: {'Content-Type':'text/plain'}, body: JSON.stringify({ action: 'upload', fileName: file.name, mimeType: file.type, base64: base64.split(',')[1] }) });
                     const data = await res.json(); if (data.url) link = data.url;
-                } catch(e) { alert("Error al subir archivo, se guardará sin él."); }
+                } catch(e) { alert("Error al subir archivo. Se guardó sin él."); }
                 btn.innerHTML = defaultText; btn.disabled = false;
             }
             return link;
@@ -339,26 +345,33 @@
 
         // --- LOGÍSTICA FIJA ---
         async function addLogistics() {
-            const text = document.getElementById('logText').value.trim();
-            if(!text) return;
-            const link = await handleUpload('logFile', 'logLink', 'btn-add-log', 'Guardar');
-            state.logistics.push({ id: 'l_' + Date.now(), category: document.getElementById('logCat').value, text: text, evidenceLink: link });
+            const text = document.getElementById('logText').value.trim(); if(!text) return;
+            const link = await handleUpload('logFile', 'logLink', 'btn-add-log', 'Guardar Logística');
+            state.logistics.push({ id: 'l_' + Date.now(), category: document.getElementById('logCat').value, text: text, evidenceLink: link, createdAt: getCurrentDateTime() });
             document.getElementById('logText').value = ''; document.getElementById('logLink').value = ''; document.getElementById('logFile').value = ''; document.getElementById('logFileName').innerText = '';
             document.getElementById('form-log').style.display = 'none'; saveData();
         }
         function deleteLog(id) { state.logistics = state.logistics.filter(l => l.id !== id); saveData(); }
+        function saveEditLog(id) {
+            const l = state.logistics.find(x => x.id === id);
+            l.category = document.getElementById(`elc-${id}`).value; l.text = document.getElementById(`elt-${id}`).value; l.evidenceLink = document.getElementById(`ell-${id}`).value;
+            editingId = null; saveData();
+        }
         
         function renderLogistics() {
-            const container = document.getElementById('logistics-content');
-            container.innerHTML = state.logistics.map(l => `
+            const cats = ['✈️ Vuelo', '🏠 Airbnb', '🚗 Auto', '🛡️ Seguro'];
+            document.getElementById('logistics-content').innerHTML = state.logistics.map(l => {
+                if(l.id === editingId) return `<div class="edit-box"><select id="elc-${l.id}">${cats.map(c => `<option value="${c}" ${c===l.category?'selected':''}>${c}</option>`).join('')}</select><input type="text" id="elt-${l.id}" value="${l.text}" style="padding:8px;"><input type="url" id="ell-${l.id}" value="${l.evidenceLink}" placeholder="Enlace del archivo" style="padding:8px;"><div class="edit-actions"><button class="save" onclick="saveEditLog('${l.id}')">Guardar</button><button class="cancel" onclick="cancelEdit()">Cancelar</button></div></div>`;
+                
+                return `
                 <div class="log-item">
-                    <div>
+                    <div style="display:flex; justify-content:space-between; width:100%;">
                         <span style="font-weight:600; font-size:14px;">${l.category}: ${l.text}</span>
-                        ${l.evidenceLink ? `<br><a href="${l.evidenceLink}" target="_blank" style="font-size:12px; color:#34D399; text-decoration:none;">📄 Ver detalle</a>` : ''}
+                        <div><button class="btn-wa" style="padding:4px 8px;" onclick="sendWA('*${l.category}*\\n${l.text}\\n📄 Archivo: ${l.evidenceLink||'No adjunto'}\\n_Registrado: ${l.createdAt}_')">💬</button><button class="btn-edit" style="color:var(--text-light);" onclick="setEdit('${l.id}')">✏️</button><button class="btn-del" onclick="deleteLog('${l.id}')">🗑️</button></div>
                     </div>
-                    <button class="btn-del" style="color:#9CA3AF;" onclick="deleteLog('${l.id}')">🗑️</button>
-                </div>
-            `).join('');
+                    ${l.evidenceLink ? `<div style="margin-top:8px;"><a href="${l.evidenceLink}" target="_blank" class="btn-doc" style="background:#374151; border:none; color:#9CA3AF;">📄 Ver detalle</a></div>` : ''}
+                </div>`;
+            }).join('');
         }
 
         // --- ITINERARIO ---
@@ -367,7 +380,7 @@
         function updateWeather(dayText) {
             const wBox = document.getElementById('weather-box');
             if(dayText.includes('Mié') || dayText.includes('Jue')) { wBox.innerHTML = `<div>⛅ Parcialmente Nublado</div><div>28°C / 82°F</div>`; } 
-            else if(dayText.includes('Sáb')) { wBox.innerHTML = `<div>🌦️ Posible lluvia breve</div><div>28°C / 82°F</div>`; } 
+            else if(dayText.includes('Sáb')) { wBox.innerHTML = `<div>🌦️ Posible lluvia</div><div>28°C / 82°F</div>`; } 
             else { wBox.innerHTML = `<div>☀️ Soleado y Ventoso</div><div>29°C / 84°F</div>`; }
         }
 
@@ -376,14 +389,15 @@
         async function addItinerary() {
             const text = document.getElementById('itText').value.trim(); if(!text) return;
             const link = await handleUpload('itFile', 'itLink', 'btn-add-it', 'Añadir a Agenda');
-            state.itinerary.push({ id: 'i_' + Date.now(), day: currentDay, hour: document.getElementById('itHour').value, min: document.getElementById('itMin').value, ampm: document.getElementById('itAmPm').value, text: text, assignee: document.getElementById('itPerson').value, evidenceLink: link, completed: false });
+            state.itinerary.push({ id: 'i_' + Date.now(), day: currentDay, hour: document.getElementById('itHour').value, min: document.getElementById('itMin').value, ampm: document.getElementById('itAmPm').value, text: text, assignee: document.getElementById('itPerson').value, evidenceLink: link, completed: false, createdAt: getCurrentDateTime() });
             document.getElementById('itText').value = ''; document.getElementById('itLink').value = ''; document.getElementById('itFile').value = ''; document.getElementById('itFileName').innerText = ''; saveData();
         }
         function toggleIt(id) { const i = state.itinerary.find(x => x.id === id); if(i) { i.completed = !i.completed; saveData(); } }
         function deleteIt(id) { state.itinerary = state.itinerary.filter(i => i.id !== id); saveData(); }
+        
         function saveEditIt(id) {
             const i = state.itinerary.find(x => x.id === id);
-            i.hour = document.getElementById(`eh-${id}`).value; i.min = document.getElementById(`em-${id}`).value; i.ampm = document.getElementById(`ea-${id}`).value; i.text = document.getElementById(`et-${id}`).value; i.assignee = document.getElementById(`ep-${id}`).value;
+            i.hour = document.getElementById(`eh-${id}`).value; i.min = document.getElementById(`em-${id}`).value; i.ampm = document.getElementById(`ea-${id}`).value; i.text = document.getElementById(`et-${id}`).value; i.assignee = document.getElementById(`ep-${id}`).value; i.evidenceLink = document.getElementById(`el-${id}`).value;
             editingId = null; saveData();
         }
 
@@ -395,10 +409,24 @@
             const hoursSelect = `<option value="01">01</option><option value="02">02</option><option value="03">03</option><option value="04">04</option><option value="05">05</option><option value="06">06</option><option value="07">07</option><option value="08">08</option><option value="09">09</option><option value="10">10</option><option value="11">11</option><option value="12">12</option>`;
 
             container.innerHTML = dayTasks.map(t => {
-                if(t.id === editingId) return `<div class="edit-box"><div style="display:flex; gap:4px;"><select id="eh-${t.id}">${hoursSelect.replace(`value="${t.hour}"`, `value="${t.hour}" selected`)}</select><select id="em-${t.id}"><option value="00" ${t.min==='00'?'selected':''}>00</option><option value="15" ${t.min==='15'?'selected':''}>15</option><option value="30" ${t.min==='30'?'selected':''}>30</option><option value="45" ${t.min==='45'?'selected':''}>45</option></select><select id="ea-${t.id}"><option value="AM" ${t.ampm==='AM'?'selected':''}>AM</option><option value="PM" ${t.ampm==='PM'?'selected':''}>PM</option></select></div><input type="text" id="et-${t.id}" value="${t.text}" style="padding:8px;"><select id="ep-${t.id}">${people.map(p => `<option value="${p}" ${p===t.assignee?'selected':''}>${p}</option>`).join('')}</select><div class="edit-actions"><button class="save" onclick="saveEditIt('${t.id}')">Guardar</button><button class="cancel" onclick="cancelEdit()">Cancelar</button></div></div>`;
+                if(t.id === editingId) return `<div class="edit-box"><div style="display:flex; gap:4px;"><select id="eh-${t.id}">${hoursSelect.replace(`value="${t.hour}"`, `value="${t.hour}" selected`)}</select><select id="em-${t.id}"><option value="00" ${t.min==='00'?'selected':''}>00</option><option value="15" ${t.min==='15'?'selected':''}>15</option><option value="30" ${t.min==='30'?'selected':''}>30</option><option value="45" ${t.min==='45'?'selected':''}>45</option></select><select id="ea-${t.id}"><option value="AM" ${t.ampm==='AM'?'selected':''}>AM</option><option value="PM" ${t.ampm==='PM'?'selected':''}>PM</option></select></div><input type="text" id="et-${t.id}" value="${t.text}" style="padding:8px;"><select id="ep-${t.id}">${people.map(p => `<option value="${p}" ${p===t.assignee?'selected':''}>${p}</option>`).join('')}</select><input type="url" id="el-${t.id}" value="${t.evidenceLink}" placeholder="Link Archivo" style="padding:8px;"><div class="edit-actions"><button class="save" onclick="saveEditIt('${t.id}')">Guardar</button><button class="cancel" onclick="cancelEdit()">Cancelar</button></div></div>`;
                 
-                let docBtn = t.evidenceLink ? `<a href="${t.evidenceLink}" target="_blank" class="btn-doc" style="margin-top:8px;">📄 Ver detalle</a>` : '';
-                return `<div class="item-box" style="${t.completed ? 'opacity:0.5;' : ''}"><div class="item-row"><div class="time-badge">${t.hour}:${t.min} ${t.ampm}</div><div style="flex:1;"><div style="font-weight:600; font-size:16px;"><span style="${t.completed ? 'text-decoration:line-through;' : ''}">${t.text}</span></div><div style="font-size:13px; color:var(--text-light); margin-top:4px;"><input type="checkbox" ${t.completed ? 'checked' : ''} onchange="toggleIt('${t.id}')"> Hecho • 👤 ${t.assignee}</div>${docBtn}</div><button class="btn-edit" onclick="setEdit('${t.id}')">✏️</button><button class="btn-del" onclick="deleteIt('${t.id}')">🗑️</button></div></div>`;
+                let docBtn = t.evidenceLink ? `<a href="${t.evidenceLink}" target="_blank" class="btn-doc" style="margin-top:12px;">📄 Ver detalle</a>` : '';
+                return `
+                <div class="item-box" style="${t.completed ? 'opacity:0.5;' : ''}">
+                    <div class="item-row">
+                        <div class="time-badge">${t.hour}:${t.min} ${t.ampm}</div>
+                        <div style="flex:1;">
+                            <div style="font-weight:600; font-size:16px;"><span style="${t.completed ? 'text-decoration:line-through;' : ''}">${t.text}</span></div>
+                            <div style="font-size:13px; color:var(--text-light); margin-top:4px;"><input type="checkbox" ${t.completed ? 'checked' : ''} onchange="toggleIt('${t.id}')"> Hecho • 👤 ${t.assignee}</div>
+                            ${docBtn}
+                        </div>
+                        <div style="display:flex; flex-direction:column; gap:4px; align-items:flex-end;">
+                            <button class="btn-wa" onclick="sendWA('*Actividad: ${t.text}*\\n⏰ ${t.day} - ${t.hour}:${t.min} ${t.ampm}\\n👤 ${t.assignee}\\n${t.evidenceLink?`📄 ${t.evidenceLink}`:''}')">💬</button>
+                            <div><button class="btn-edit" onclick="setEdit('${t.id}')">✏️</button><button class="btn-del" onclick="deleteIt('${t.id}')">🗑️</button></div>
+                        </div>
+                    </div>
+                </div>`;
             }).join('');
         }
 
@@ -406,7 +434,7 @@
             let dayTasks = state.itinerary.filter(i => i.day === currentDay).sort((a,b) => getMinutes(a) - getMinutes(b));
             if(dayTasks.length === 0) return alert("No hay actividades para enviar.");
             let msg = `*🗓️ Agenda Aruba - ${currentDay}*\n\n`; dayTasks.forEach(t => { msg += `⏰ ${t.hour}:${t.min} ${t.ampm} - ${t.text} (${t.assignee})\n`; });
-            window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(msg)}`, '_blank');
+            sendWA(msg);
         }
 
         // --- VOTACIONES ---
@@ -416,7 +444,7 @@
             state.voting.push({ 
                 id: 'v_' + Date.now(), day: document.getElementById('voteDay').value,
                 hour: document.getElementById('voteHour').value, min: document.getElementById('voteMin').value, ampm: document.getElementById('voteAmPm').value,
-                title: title, evidenceLink: link, votes_Daniel: false, votes_Carlos: false, votes_Miguel: false, votes_Desiree: false 
+                title: title, evidenceLink: link, votes_Daniel: false, votes_Carlos: false, votes_Miguel: false, votes_Desiree: false, createdAt: getCurrentDateTime() 
             });
             document.getElementById('voteTitle').value = ''; document.getElementById('voteLink').value = ''; document.getElementById('voteFile').value = ''; document.getElementById('voteFileName').innerText = ''; saveData();
         }
@@ -426,7 +454,7 @@
         function approveToItinerary(id) {
             const v = state.voting.find(x => x.id === id);
             if(v) {
-                state.itinerary.push({ id: 'i_' + Date.now(), day: v.day, hour: v.hour, min: v.min, ampm: v.ampm, text: v.title, assignee: 'Grupo', evidenceLink: v.evidenceLink || '', completed: false });
+                state.itinerary.push({ id: 'i_' + Date.now(), day: v.day, hour: v.hour, min: v.min, ampm: v.ampm, text: v.title, assignee: 'Grupo', evidenceLink: v.evidenceLink || '', completed: false, createdAt: getCurrentDateTime() });
                 deleteVote(id); 
             }
         }
@@ -446,7 +474,7 @@
                             <span style="font-weight:600; font-size:16px;">${v.title}</span>
                             ${v.evidenceLink ? `<br><a href="${v.evidenceLink}" target="_blank" style="font-size:12px; color:var(--primary); text-decoration:none;">📄 Ver detalle propuesto</a>` : ''}
                         </div>
-                        <button class="btn-del" onclick="deleteVote('${v.id}')">🗑️</button>
+                        <div><button class="btn-wa" style="padding:4px 8px; margin-right:4px;" onclick="sendWA('*Votación Grupo Aruba*\\n¿Qué opinan de:\\n${v.title} (${v.day} - ${v.hour}:${v.min} ${v.ampm})?\\nEntren a votar.')">💬</button><button class="btn-del" onclick="deleteVote('${v.id}')">🗑️</button></div>
                     </div>
                     <div class="vote-bar"><div class="vote-progress" style="width: ${perc}%;"></div></div>
                     <div style="font-size:12px; color:var(--text-light); margin-bottom:10px;">${totalVotes} de 4 votos</div>
@@ -456,23 +484,39 @@
             }).join('');
         }
 
-        // --- EQUIPAJE ---
-        function addPackItem() { const item = document.getElementById('packItem').value.trim(); if(item) { state.packing.push({ id: 'p_' + Date.now(), item: item, category: document.getElementById('packCategory').value, assignee: document.getElementById('packPerson').value, comp_Daniel:false, comp_Carlos:false, comp_Miguel:false, comp_Desiree:false }); document.getElementById('packItem').value = ''; saveData(); } }
+        // --- EQUIPAJE (Con Filtro de Persona) ---
+        function addPackItem() { const item = document.getElementById('packItem').value.trim(); if(item) { state.packing.push({ id: 'p_' + Date.now(), item: item, category: document.getElementById('packCategory').value, assignee: document.getElementById('packPerson').value, comp_Daniel:false, comp_Carlos:false, comp_Miguel:false, comp_Desiree:false, createdAt: getCurrentDateTime() }); document.getElementById('packItem').value = ''; saveData(); } }
         function togglePackInd(id, person) { const p = state.packing.find(x => x.id === id); if(p) { p['comp_' + person] = !p['comp_' + person]; saveData(); } }
         function deletePack(id) { state.packing = state.packing.filter(p => p.id !== id); saveData(); }
         function saveEditPack(id) { const p = state.packing.find(x => x.id === id); p.item = document.getElementById(`ept-${id}`).value; p.assignee = document.getElementById(`epa-${id}`).value; editingId = null; saveData(); }
 
         function renderPacking() {
-            document.getElementById('pack-content').innerHTML = state.packing.map(p => {
+            const filter = document.getElementById('packFilter').value;
+            let displayPack = state.packing;
+
+            // Lógica de Filtrado: Si selecciono "Daniel", me muestra lo asignado a "Daniel", "Todos" o "Pendiente"
+            if (filter !== "Todos") {
+                displayPack = state.packing.filter(p => p.assignee === filter || p.assignee === 'Todos' || p.assignee === 'Pendiente');
+            }
+
+            document.getElementById('pack-content').innerHTML = displayPack.map(p => {
                 if(p.id === editingId) return `<div class="edit-box"><input type="text" id="ept-${p.id}" value="${p.item}" style="padding:8px;"><select id="epa-${p.id}"><option value="Todos" ${p.assignee==='Todos'?'selected':''}>Todos</option><option value="Pendiente" ${p.assignee==='Pendiente'?'selected':''}>⚠️ Pendiente</option>${people.map(per => `<option value="${per}" ${per===p.assignee?'selected':''}>${per}</option>`).join('')}</select><div class="edit-actions"><button class="save" onclick="saveEditPack('${p.id}')">Guardar</button><button class="cancel" onclick="cancelEdit()">Cancelar</button></div></div>`;
                 
                 let checkBoxesHtml = ''; let isFullyCompleted = false;
                 if (p.assignee === 'Todos') {
-                    isFullyCompleted = p.comp_Daniel && p.comp_Carlos && p.comp_Miguel && p.comp_Desiree;
-                    checkBoxesHtml = `<div class="pack-checkboxes">${people.map(per => `<label class="pack-person" style="${p['comp_'+per]?'opacity:0.5;text-decoration:line-through;':''}"><input type="checkbox" ${p['comp_'+per] ? 'checked' : ''} onchange="togglePackInd('${p.id}', '${per}')"> ${per}</label>`).join('')}</div>`;
+                    // Si hay un filtro (ej. "Daniel"), solo le muestro su checkbox en las tareas grupales para no ensuciar la vista.
+                    if (filter !== "Todos") {
+                        isFullyCompleted = p['comp_' + filter];
+                        checkBoxesHtml = `<label class="pack-person" style="${p['comp_'+filter]?'opacity:0.5;text-decoration:line-through;':''}"><input type="checkbox" ${p['comp_'+filter] ? 'checked' : ''} onchange="togglePackInd('${p.id}', '${filter}')"> ${filter}</label>`;
+                    } else {
+                        isFullyCompleted = p.comp_Daniel && p.comp_Carlos && p.comp_Miguel && p.comp_Desiree;
+                        checkBoxesHtml = `<div class="pack-checkboxes">${people.map(per => `<label class="pack-person" style="${p['comp_'+per]?'opacity:0.5;text-decoration:line-through;':''}"><input type="checkbox" ${p['comp_'+per] ? 'checked' : ''} onchange="togglePackInd('${p.id}', '${per}')"> ${per}</label>`).join('')}</div>`;
+                    }
                 } else {
-                    isFullyCompleted = p.comp_Daniel;
-                    checkBoxesHtml = `<label style="font-size:13px; margin-top:8px; display:flex; align-items:center; gap:6px;"><input type="checkbox" ${isFullyCompleted?'checked':''} onchange="togglePackInd('${p.id}', 'Daniel')"> Ya está empacado</label>`;
+                    // Para tareas individuales o Pendientes
+                    isFullyCompleted = p.comp_Daniel; // usamos comp_Daniel como bandera general para items individuales
+                    let nameLabel = p.assignee === 'Pendiente' ? 'Marcar como empacado' : p.assignee;
+                    checkBoxesHtml = `<label class="pack-person" style="width:fit-content; margin-top:8px;"><input type="checkbox" ${isFullyCompleted?'checked':''} onchange="togglePackInd('${p.id}', 'Daniel')"> ${nameLabel}</label>`;
                 }
 
                 return `<div class="item-box" style="${isFullyCompleted ? 'opacity:0.5;' : ''}"><div style="display:flex; justify-content:space-between; align-items:center;"><span style="font-weight:600; ${isFullyCompleted ? 'text-decoration:line-through;' : ''}">${p.item}</span><div><button class="btn-edit" onclick="setEdit('${p.id}')">✏️</button><button class="btn-del" onclick="deletePack('${p.id}')">🗑️</button></div></div><span class="badge" style="width:fit-content; margin-top:6px; ${p.assignee === 'Pendiente' ? 'background:#FEF3C7; color:#D97706;' : ''}">${p.assignee}</span>${checkBoxesHtml}</div>`;
@@ -487,28 +531,27 @@
                     if(faltan.length > 0) msg += `• ${p.item} (Faltan: ${faltan.join(', ')})\n`;
                 } else if(!p.comp_Daniel) { msg += `• ${p.item} (${p.assignee})\n`; }
             });
-            window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(msg)}`, '_blank');
+            sendWA(msg);
         }
 
         // --- SUPERMERCADO ---
-        function addSuper() { const t = document.getElementById('supItem').value.trim(); if(t) { state.supermarket.push({ id: 's_' + Date.now(), item: t, completed: false }); document.getElementById('supItem').value = ''; saveData(); } }
+        function addSuper() { const t = document.getElementById('supItem').value.trim(); if(t) { state.supermarket.push({ id: 's_' + Date.now(), item: t, completed: false, createdAt: getCurrentDateTime() }); document.getElementById('supItem').value = ''; saveData(); } }
         function toggleSup(id) { const s = state.supermarket.find(x => x.id === id); if(s) { s.completed = !s.completed; saveData(); } }
         function deleteSup(id) { state.supermarket = state.supermarket.filter(s => s.id !== id); saveData(); }
         function saveEditSup(id) { const s = state.supermarket.find(x => x.id === id); s.item = document.getElementById(`est-${id}`).value; editingId = null; saveData(); }
         function renderSuper() {
             document.getElementById('super-content').innerHTML = state.supermarket.map(s => {
                 if(s.id === editingId) return `<div class="edit-box"><input type="text" id="est-${s.id}" value="${s.item}" style="padding:8px;"><div class="edit-actions"><button class="save" onclick="saveEditSup('${s.id}')">Guardar</button><button class="cancel" onclick="cancelEdit()">Cancelar</button></div></div>`;
-                return `<div style="display:flex; align-items:center; padding:12px 0; border-bottom:1px solid var(--border);"><input type="checkbox" style="margin-right:12px; width:20px;height:20px;" ${s.completed ? 'checked' : ''} onchange="toggleSup('${s.id}')"><span style="flex:1; ${s.completed?'opacity:0.5; text-decoration:line-through;':''}">${s.item}</span><button class="btn-edit" onclick="setEdit('${s.id}')">✏️</button><button class="btn-del" onclick="deleteSup('${s.id}')">🗑️</button></div>`;
+                return `<div style="display:flex; align-items:center; padding:12px 0; border-bottom:1px solid var(--border);"><input type="checkbox" style="margin-right:12px; width:20px;height:20px;" ${s.completed ? 'checked' : ''} onchange="toggleSup('${s.id}')"><span style="flex:1; ${s.completed?'opacity:0.5; text-decoration:line-through;':''}">${s.item}</span><button class="btn-wa" style="padding:4px 8px;" onclick="sendWA('¿Alguien puede comprar: ${s.item}?')">💬</button><button class="btn-edit" onclick="setEdit('${s.id}')">✏️</button><button class="btn-del" onclick="deleteSup('${s.id}')">🗑️</button></div>`;
             }).join('');
         }
 
-        // --- GASTOS CON FILTRO ---
+        // --- GASTOS CON CÁLCULO INDIVIDUAL PARA WHATSAPP ---
         function addExpense() {
             const concept = document.getElementById('expConcept').value.trim(); const amt = parseFloat(document.getElementById('expAmount').value); const cur = document.getElementById('expCurrency').value;
             if(!concept || isNaN(amt)) return;
-            state.expenses.push({ id: 'e_' + Date.now(), concept: concept, originalAmount: amt, currency: cur, amountUsd: cur === 'AWG' ? (amt / TASA_FLORIN) : amt, paidBy: document.getElementById('expPerson').value, date: new Date().toLocaleDateString() });
+            state.expenses.push({ id: 'e_' + Date.now(), concept: concept, originalAmount: amt, currency: cur, amountUsd: cur === 'AWG' ? (amt / TASA_FLORIN) : amt, paidBy: document.getElementById('expPerson').value, date: new Date().toLocaleDateString(), createdAt: getCurrentDateTime() });
             document.getElementById('expConcept').value = ''; document.getElementById('expAmount').value = ''; saveData();
-            window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(`*💸 Gasto Aruba*\n${document.getElementById('expPerson').value} pagó: ${concept} por ${amt}${cur}.`)}`, '_blank');
         }
         function deleteExp(id) { state.expenses = state.expenses.filter(e => e.id !== id); saveData(); }
         function saveEditExp(id) {
@@ -517,24 +560,64 @@
             editingId = null; saveData();
         }
 
+        function calculateSettlement() {
+            const box = document.getElementById('settlement-box');
+            let b = { 'Daniel': 0, 'Carlos': 0, 'Miguel': 0, 'Desiree': 0 };
+            state.expenses.forEach(e => { b[e.paidBy] += e.amountUsd; for (let p in b) b[p] -= (e.amountUsd / 4); });
+            
+            let debtors = [], creditors = [];
+            for (let p in b) {
+                if (b[p] < -0.01) debtors.push({person: p, amount: Math.abs(b[p])});
+                else if (b[p] > 0.01) creditors.push({person: p, amount: b[p]});
+            }
+            
+            let html = `<h4>💳 Liquidación de Cuentas (USD)</h4>`;
+            let msgText = `*Liquidación Aruba (USD)*\n`;
+            
+            if (debtors.length === 0) {
+                html += `<p>Nadie debe nada.</p>`; msgText += "Nadie debe nada.";
+            } else {
+                let i = 0, j = 0;
+                while(i < debtors.length && j < creditors.length) {
+                    let d = debtors[i], c = creditors[j]; let amt = Math.min(d.amount, c.amount);
+                    html += `<div style="padding:8px 0; border-bottom:1px solid #333;">🔴 ${d.person} transfiere a 🟢 ${c.person}: <strong>$${amt.toFixed(2)}</strong></div>`;
+                    msgText += `• ${d.person} ➡️ ${c.person}: $${amt.toFixed(2)}\n`;
+                    d.amount -= amt; c.amount -= amt;
+                    if (d.amount < 0.01) i++; if (c.amount < 0.01) j++;
+                }
+            }
+            html += `<button class="btn-wa" style="width:100%; justify-content:center; margin-top:16px;" onclick="sendWA('${msgText}')">💬 Enviar Liquidación por WA</button>`;
+            box.innerHTML = html; box.style.display = 'block';
+        }
+
         function renderExpenses() {
             const filter = document.getElementById('debtFilter').value;
             let displayExpenses = state.expenses;
-
-            // Filtro "Solo lo mío"
-            if (filter !== "Todos") {
-                displayExpenses = state.expenses.filter(e => e.paidBy === filter);
-            }
+            if (filter !== "Todos") displayExpenses = state.expenses.filter(e => e.paidBy === filter);
 
             document.getElementById('expenses-list').innerHTML = displayExpenses.map(e => {
                 if(e.id === editingId) return `<div class="edit-box"><input type="text" id="eec-${e.id}" value="${e.concept}" style="padding:8px;"><div style="display:flex; gap:4px;"><input type="number" id="eea-${e.id}" value="${e.originalAmount}" step="0.01" style="padding:8px; flex:1;"><select id="eeu-${e.id}"><option value="USD" ${e.currency==='USD'?'selected':''}>USD</option><option value="AWG" ${e.currency==='AWG'?'selected':''}>AWG</option></select><select id="eep-${e.id}">${people.map(p => `<option value="${p}" ${p===e.paidBy?'selected':''}>${p}</option>`).join('')}</select></div><div class="edit-actions"><button class="save" onclick="saveEditExp('${e.id}')">Guardar</button><button class="cancel" onclick="cancelEdit()">Cancelar</button></div></div>`;
-                return `<div style="display:flex; justify-content:space-between; padding:12px 0; border-bottom:1px solid var(--border); align-items:center;"><div><strong>${e.concept}</strong><br><small>${e.date} • Pagó ${e.paidBy}</small></div><div style="font-weight:700;">${e.currency==='AWG'?`<small style="color:#888;">(${e.originalAmount} AWG)</small>`:''} $${e.amountUsd.toFixed(2)} <button class="btn-edit" onclick="setEdit('${e.id}')">✏️</button><button class="btn-del" onclick="deleteExp('${e.id}')">🗑️</button></div></div>`;
+                
+                // LÓGICA DE WHATSAPP PARA GASTO INDIVIDUAL CON DIVISIÓN
+                let splitUsd = (e.amountUsd / 4).toFixed(2);
+                let debtorsText = people.filter(p => p !== e.paidBy).map(p => `• ${p}: $${splitUsd}`).join('\\n');
+                let waMsg = `*💸 Cuenta: ${e.concept}*\\n${e.paidBy} pagó ${e.originalAmount} ${e.currency}.\\n\\n*Cada uno debe:* $${splitUsd} USD\\nA transferir a ${e.paidBy}:\\n${debtorsText}\\n\\n_Fecha: ${e.date}_`;
+
+                return `
+                <div style="padding:16px 0; border-bottom:1px solid var(--border);">
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <div><strong style="font-size:15px;">${e.concept}</strong><br><small style="color:var(--text-light);">${e.date} • Pagó ${e.paidBy}</small></div>
+                        <div style="font-weight:700; font-size:16px;">${e.currency==='AWG'?`<small style="color:var(--text-light); font-weight:normal;">(${e.originalAmount} AWG)</small> `: ''}$${e.amountUsd.toFixed(2)}</div>
+                    </div>
+                    <div style="display:flex; justify-content:flex-end; gap:8px; margin-top:8px;">
+                        <button class="btn-wa" onclick="sendWA('${waMsg}')">💬 Repartir Cobro</button>
+                        <button class="btn-edit" onclick="setEdit('${e.id}')">✏️</button><button class="btn-del" onclick="deleteExp('${e.id}')">🗑️</button>
+                    </div>
+                </div>`;
             }).join('');
             
             let b = { 'Daniel': 0, 'Carlos': 0, 'Miguel': 0, 'Desiree': 0 };
             state.expenses.forEach(e => { b[e.paidBy] += e.amountUsd; for (let p in b) b[p] -= (e.amountUsd / 4); });
-            
-            // Renderizado visual de deudas globales
             document.getElementById('balances-content').innerHTML = Object.keys(b).map(p => `<div class="balance-card" style="${b[p] > 0.01 ? 'background:#F0FDF4;border-color:#BBF7D0;' : b[p] < -0.01 ? 'background:#FEF2F2;border-color:#FECACA;' : ''}"><div>${p}</div><div style="font-size:20px; font-weight:700; margin-top:4px; ${b[p] > 0.01 ? 'color:#166534;' : b[p] < -0.01 ? 'color:#991B1B;' : ''}">${b[p] > 0.01 ? '+' : ''}$${b[p].toFixed(2)}</div></div>`).join('');
         }
 
@@ -543,7 +626,7 @@
             localStorage.setItem('ar26_it', JSON.stringify(state.itinerary)); localStorage.setItem('ar26_log', JSON.stringify(state.logistics));
             localStorage.setItem('ar26_sup', JSON.stringify(state.supermarket)); localStorage.setItem('ar26_exp', JSON.stringify(state.expenses));
             localStorage.setItem('ar26_pack', JSON.stringify(state.packing)); localStorage.setItem('ar26_vot', JSON.stringify(state.voting));
-            renderAll(); syncWithCloud('POST');
+            renderAll(); document.getElementById('settlement-box').style.display='none'; syncWithCloud('POST');
         }
 
         async function syncWithCloud(method = 'GET') {
