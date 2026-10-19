@@ -9,74 +9,75 @@
 
         :root {
             --bg: #F4F5F7; --card: #FFFFFF; --text: #111827; --text-light: #6B7280;
-            --border: #E5E7EB; --primary: #00A896; --wa: #25D366; --danger: #EF4444;
-            --radius: 16px;
+            --border: #E5E7EB; --primary: #00A896; --wa: #25D366; --radius: 16px;
         }
 
-        body { font-family: 'Inter', sans-serif; background-color: var(--bg); color: var(--text); margin: 0; }
+        body { font-family: 'Inter', sans-serif; background-color: var(--bg); color: var(--text); margin: 0; -webkit-tap-highlight-color: transparent;}
 
-        .hero {
-            background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0.2)), url('https://images.unsplash.com/photo-1544281679-052a210740e5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80') center/cover;
-            height: 220px; display: flex; align-items: flex-end; padding: 24px; color: white;
-        }
+        .hero { background-color: #028090; background-image: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0.1)), url('https://images.unsplash.com/photo-1544281679-052a210740e5?auto=format&fit=crop&w=1200&q=80'); background-size: cover; background-position: center; height: 200px; display: flex; align-items: flex-end; padding: 24px; color: white; }
         .hero-content { max-width: 800px; margin: 0 auto; width: 100%; display: flex; justify-content: space-between; align-items: flex-end; }
-        .hero h1 { margin: 0 0 4px 0; font-size: 32px; font-weight: 700; }
+        .hero h1 { margin: 0 0 4px 0; font-size: 32px; font-weight: 700; letter-spacing: -1px;}
         
-        .top-controls { display: flex; flex-direction: column; align-items: flex-end; gap: 10px; }
-        .sync-badge { background: rgba(255,255,255,0.2); padding: 4px 12px; border-radius: 20px; font-size: 12px; backdrop-filter: blur(5px); }
-        .btn-gallery { background: rgba(255, 255, 255, 0.95); color: var(--primary); padding: 8px 16px; border-radius: 99px; font-weight: 700; font-size: 13px; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; transition: 0.2s; box-shadow: 0 4px 12px rgba(0,0,0,0.15); border: none;}
-        .btn-gallery:hover { background: #FFFFFF; transform: scale(1.02); }
+        .top-controls { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }
+        .sync-badge { background: rgba(255,255,255,0.2); padding: 4px 12px; border-radius: 20px; font-size: 11px; backdrop-filter: blur(5px); }
+        .btn-gallery { background: #FFF; color: var(--primary); padding: 8px 16px; border-radius: 99px; font-weight: 700; font-size: 13px; text-decoration: none; box-shadow: 0 4px 12px rgba(0,0,0,0.15);}
 
         .container { max-width: 800px; margin: -20px auto 50px; padding: 0 16px; position: relative; z-index: 10; }
 
-        /* Pestañas */
         .tabs { display: flex; gap: 8px; margin-bottom: 20px; background: rgba(255,255,255,0.9); padding: 6px; border-radius: 99px; overflow-x: auto; scrollbar-width: none;}
         .tabs::-webkit-scrollbar { display: none; }
-        .tab-btn { padding: 10px 16px; background: transparent; border: none; font-size: 14px; font-weight: 600; color: var(--text-light); cursor: pointer; border-radius: 99px; white-space: nowrap;}
+        .tab-btn { padding: 10px 16px; background: transparent; border: none; font-size: 14px; font-weight: 600; color: var(--text-light); cursor: pointer; border-radius: 99px; white-space: nowrap; transition: 0.2s;}
         .tab-btn.active { background: var(--text); color: white; }
 
-        .card { background: var(--card); border-radius: var(--radius); box-shadow: 0 4px 20px rgba(0,0,0,0.05); padding: 24px; margin-bottom: 20px; border: 1px solid var(--border); }
+        .card { background: var(--card); border-radius: var(--radius); padding: 24px; margin-bottom: 20px; border: 1px solid var(--border); box-shadow: 0 4px 20px rgba(0,0,0,0.03);}
         .view-section { display: none; }
         .view-section.active { display: block; }
 
-        /* Formularios */
         .form-row { display: flex; gap: 10px; flex-wrap: wrap; background: #F9FAFB; padding: 16px; border-radius: 12px; margin-bottom: 24px; border: 1px solid var(--border);}
-        .form-row input, .form-row select { flex: 1; min-width: 130px; padding: 12px; border: 1px solid var(--border); border-radius: 8px; font-size: 14px; font-family: 'Inter'; outline:none;}
+        .form-row input, .form-row select { flex: 1; min-width: 120px; padding: 12px; border: 1px solid var(--border); border-radius: 8px; font-size: 14px; font-family: 'Inter'; outline:none;}
         .form-row input:focus, .form-row select:focus { border-color: var(--primary); }
-        .btn-add { padding: 12px 20px; background: var(--primary); color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; white-space: nowrap;}
+        .btn-add { padding: 12px 20px; background: var(--primary); color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; white-space: nowrap; transition: 0.1s;}
+        .btn-add:active { transform: scale(0.98); }
         
-        .btn-wa { background: var(--wa); color: white; border: none; padding: 8px 16px; border-radius: 8px; font-weight: 600; font-size: 13px; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; text-decoration: none;}
+        .time-group { display: flex; gap: 4px; flex: 1; min-width: 200px; }
+        .time-group select { padding: 10px 4px; font-size: 13px; text-align: center; }
+
+        .btn-wa { background: var(--wa); color: white; border: none; padding: 8px 16px; border-radius: 8px; font-weight: 600; font-size: 13px; cursor: pointer; display: inline-flex; align-items: center; gap: 6px;}
         .btn-doc { background: #EEF2FF; color: #4F46E5; border: 1px solid #C7D2FE; padding: 8px 16px; border-radius: 8px; font-weight: 600; font-size: 13px; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; text-decoration: none;}
+        .btn-edit { background: transparent; color: var(--primary); border: none; font-size: 16px; cursor: pointer; padding: 4px;}
         .btn-del { background: transparent; color: var(--text-light); border: none; font-size: 18px; cursor: pointer; padding: 4px;}
 
-        /* Itinerario */
+        /* Widget Clima y Fechas */
+        .weather-widget { background: #E0F2FE; color: #0284C7; padding: 12px; border-radius: 12px; font-weight: 600; font-size: 14px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border: 1px solid #BAE6FD;}
+        
         .day-nav { display: flex; gap: 8px; margin-bottom: 20px; overflow-x: auto; padding-bottom: 8px; }
-        .day-nav::-webkit-scrollbar { height: 0; }
-        .day-btn { padding: 8px 16px; border: none; background: transparent; color: var(--text-light); font-weight: 600; cursor: pointer; border-radius: 8px;}
+        .day-btn { padding: 8px 16px; border: none; background: transparent; color: var(--text-light); font-weight: 600; cursor: pointer; border-radius: 8px; white-space: nowrap; transition: 0.2s;}
         .day-btn.active { background: #E5E7EB; color: var(--text); }
 
-        .timeline-item { display: flex; gap: 16px; margin-bottom: 16px; align-items: flex-start; padding: 12px; border: 1px solid var(--border); border-radius: 12px;}
+        .item-box { padding: 16px; border: 1px solid var(--border); border-radius: 12px; margin-bottom: 12px; display:flex; flex-direction:column; transition: 0.2s;}
+        .item-row { display: flex; gap: 16px; align-items: flex-start; }
         .time-badge { background: var(--text); color: white; padding: 6px 12px; border-radius: 6px; font-weight: 700; font-size: 14px; white-space: nowrap;}
-        .timeline-content { flex: 1; }
-        .timeline-title { font-weight: 600; font-size: 16px; margin-bottom: 4px; display: flex; align-items: center; justify-content: space-between;}
-
-        /* Reservas */
-        .res-item { padding: 16px; border: 1px solid var(--border); border-radius: 12px; margin-bottom: 16px; }
-        .res-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;}
         .badge { font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 99px; background: #F3F4F6; color: var(--text-light);}
-        .res-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 16px; padding-top: 16px; border-top: 1px dashed var(--border);}
+        
+        .upload-section { flex: 1; min-width: 100%; padding: 12px; border: 1px dashed var(--primary); border-radius: 8px; background: #F0FDF4; display: flex; flex-direction: column; gap: 6px;}
 
-        /* Listas Simples (Súper y Equipaje) */
-        .list-item { display: flex; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--border); gap: 12px;}
-        .list-item.completed { opacity: 0.5; }
-        .list-item.completed .item-text { text-decoration: line-through; }
-        .pack-cat { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--primary); margin-top: 20px; border-bottom: 2px solid var(--border); padding-bottom: 6px; margin-bottom: 10px;}
+        /* Edición (CRUD) */
+        .edit-box { background: #FFFBEB; border: 1px solid #F59E0B; padding: 16px; border-radius: 12px; margin-bottom: 12px; display:flex; flex-direction: column; gap:10px; }
+        .edit-actions { display:flex; gap:10px; margin-top:10px; }
+        .edit-actions button.save { background: #F59E0B; color: white; border: none; padding: 8px 16px; border-radius: 6px; font-weight: 600; cursor:pointer;}
+        .edit-actions button.cancel { background: transparent; color: var(--text); border: 1px solid var(--border); padding: 8px 16px; border-radius: 6px; cursor:pointer;}
 
-        /* Gastos */
+        /* Votaciones */
+        .vote-item { padding: 16px; border: 1px solid var(--border); border-radius: 12px; margin-bottom: 12px; }
+        .vote-bar { height: 8px; background: #E5E7EB; border-radius: 99px; overflow: hidden; margin: 12px 0; }
+        .vote-progress { height: 100%; background: var(--primary); width: 0%; transition: width 0.3s ease; }
+        .vote-buttons { display: flex; gap: 6px; flex-wrap: wrap; }
+        .vote-btn { border: 1px solid var(--border); background: #FFF; padding: 6px 12px; border-radius: 99px; font-size: 12px; font-weight: 600; cursor: pointer; color: var(--text-light); transition: 0.2s;}
+        .vote-btn.voted { background: var(--primary); color: white; border-color: var(--primary); }
+
         .balance-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px; margin-bottom: 24px; }
         .balance-card { padding: 16px; border-radius: 12px; border: 1px solid var(--border); text-align: center; }
-        .exp-item { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid var(--border); align-items: center; }
-
+        
         @media (max-width: 600px) { .form-row input, .form-row select, .btn-add { min-width: 100%; flex: none; } }
     </style>
 </head>
@@ -86,16 +87,11 @@
         <div class="hero-content">
             <div>
                 <h1>Aruba 2026</h1>
-                <p style="margin:0; opacity:0.9;">Planificación del Grupo</p>
+                <p style="margin:0; opacity:0.9;">Viaje del 2 al 9 de Nov</p>
             </div>
             <div class="top-controls">
                 <span class="sync-badge" id="sync-status">🟡 Conectando...</span>
-                
-                <!-- 📸 AQUÍ PEGAS TU ENLACE DE GOOGLE PHOTOS O ICLOUD -->
-                <a href="https://photos.icloud.com/shared/album/0deSvo6uClUhiEALFH7Z5NycA" target="_blank" class="btn-gallery">
-                    📸 Galería Compartida
-                </a>
-                
+                <a href="https://photos.icloud.com/shared/album/0deSvo6uClUhiEALFH7Z5NycA" target="_blank" class="btn-gallery">📸 Fotos Grupo</a>
             </div>
         </div>
     </div>
@@ -104,7 +100,8 @@
         
         <div class="tabs">
             <button class="tab-btn active" onclick="switchTab('itinerary', this)">📍 Itinerario</button>
-            <button class="tab-btn" onclick="switchTab('reservations', this)">🎫 Reservas & Docs</button>
+            <button class="tab-btn" onclick="switchTab('voting', this)">⭐ Votar</button>
+            <button class="tab-btn" onclick="switchTab('reservations', this)">🎫 Reservas</button>
             <button class="tab-btn" onclick="switchTab('packing', this)">🎒 Equipaje</button>
             <button class="tab-btn" onclick="switchTab('super', this)">🛒 Súper</button>
             <button class="tab-btn" onclick="switchTab('expenses', this)">💸 Gastos</button>
@@ -112,23 +109,42 @@
 
         <!-- 1: ITINERARIO -->
         <div id="view-itinerary" class="view-section active card">
-            <div class="day-nav" id="day-nav"></div>
-            <div class="form-row">
-                <input type="time" id="itTime" required>
-                <input type="text" id="itText" placeholder="Actividad (Ej. Desayuno, Playa)">
-                <select id="itPerson"></select>
-                <button class="btn-add" onclick="addItinerary()">Añadir a la Agenda</button>
+            
+            <!-- Integración Clima en Aruba (Noviembre) -->
+            <div class="weather-widget" id="weather-box">
+                <div>☀️ Soleado y Ventoso</div>
+                <div>29°C / 84°F</div>
             </div>
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
-                <h3 style="margin:0;">Agenda del Día</h3>
-                <button class="btn-wa" onclick="shareDayWhatsApp()">💬 Enviar Día al Grupo</button>
+
+            <div class="day-nav" id="day-nav"></div>
+            
+            <div class="form-row">
+                <div class="time-group">
+                    <select id="itHour">${Array.from({length:12}, (_,i)=>`<option value="${String(i+1).padStart(2,'0')}">${String(i+1).padStart(2,'0')}</option>`).join('')}</select>
+                    <select id="itMin"><option value="00">00</option><option value="15">15</option><option value="30">30</option><option value="45">45</option></select>
+                    <select id="itAmPm"><option value="AM">AM</option><option value="PM">PM</option></select>
+                </div>
+                <input type="text" id="itText" placeholder="Actividad (Ej. Playa Eagle Beach)">
+                <select id="itPerson"></select>
+                <button class="btn-add" onclick="addItinerary()">Añadir a Agenda</button>
             </div>
             <div id="it-content"></div>
         </div>
 
-        <!-- 2: RESERVAS -->
+        <!-- 2: VOTACIONES (NUEVO) -->
+        <div id="view-voting" class="view-section card">
+            <h3 style="margin-top:0;">Propuestas y Votaciones</h3>
+            <p style="color:var(--text-light); font-size:14px; margin-top:-10px;">Propón un restaurante o tour y decidan en grupo (4 votos máximo por idea).</p>
+            
+            <div class="form-row">
+                <input type="text" id="voteTitle" placeholder="Ej. Cenar en restaurante Faro Blanco el jueves">
+                <button class="btn-add" onclick="addVote()">Crear Propuesta</button>
+            </div>
+            <div id="vote-content"></div>
+        </div>
+
+        <!-- 3: RESERVAS -->
         <div id="view-reservations" class="view-section card">
-            <h3 style="margin-top:0;">Archivos y Reservas</h3>
             <div class="form-row">
                 <select id="resCategory">
                     <option value="🍽️ Restaurante">🍽️ Restaurante</option>
@@ -137,48 +153,46 @@
                     <option value="🏠 Hospedaje">🏠 Hospedaje</option>
                     <option value="🚗 Auto">🚗 Auto</option>
                 </select>
-                <input type="text" id="resText" placeholder="Detalle (Ej. Cena Zeerovers)">
-                <input type="url" id="resLink" placeholder="Link del PDF / Foto" style="min-width: 100%;">
-                <button class="btn-add" onclick="addReservation()" style="width: 100%;">Guardar Reserva</button>
+                <input type="text" id="resText" placeholder="Detalle (Ej. Auto Alamo)">
+                <div class="upload-section">
+                    <label>Adjuntar Archivo a Drive O pegar Link:</label>
+                    <input type="file" id="resFile" accept="image/*,.pdf" style="padding:4px; font-size:13px; border:none;">
+                    <input type="url" id="resLink" placeholder="Enlace de la reserva">
+                </div>
+                <button class="btn-add" id="btn-add-res" onclick="addReservation()" style="width: 100%;">Guardar Reserva</button>
             </div>
             <div id="res-content"></div>
         </div>
 
-        <!-- 3: EQUIPAJE -->
+        <!-- 4: EQUIPAJE -->
         <div id="view-packing" class="view-section card">
-            <h3 style="margin-top:0;">Equipaje y Documentos</h3>
-            <p style="color:var(--text-light); font-size:14px; margin-top:-10px;">Anota aquí lo indispensable. Si alguien ya va a llevar algo compartido (ej. parlante), que se lo asigne para no duplicar.</p>
             <div class="form-row">
-                <input type="text" id="packItem" placeholder="Ej. Bloqueador Reef-Safe, Pasaporte...">
+                <input type="text" id="packItem" placeholder="Ej. Bloqueador, Pasaporte...">
                 <select id="packCategory">
                     <option value="Logística Compartida">Logística Compartida</option>
                     <option value="Documentos Críticos">Documentos Críticos</option>
-                    <option value="Cuidado Personal">Cuidado Personal</option>
                 </select>
                 <select id="packPerson">
-                    <option value="Sin asignar">Sin asignar (Alguien tómelo)</option>
                     <option value="Todos">Todos deben llevarlo</option>
+                    <option value="Pendiente">⚠️ Pendiente (Alguien asuma)</option>
                 </select>
                 <button class="btn-add" onclick="addPackItem()">Agregar</button>
             </div>
             <div id="pack-content"></div>
         </div>
 
-        <!-- 4: SUPERMERCADO -->
+        <!-- 5: SUPERMERCADO -->
         <div id="view-super" class="view-section card">
-            <h3 style="margin-top:0;">Lista de Compras</h3>
             <div class="form-row">
-                <input type="text" id="supItem" placeholder="Ej. Agua, Cerveza, Huevos..." autocomplete="off">
+                <input type="text" id="supItem" placeholder="Ej. Agua, Huevos..." autocomplete="off">
                 <button class="btn-add" onclick="addSuper()">Agregar</button>
             </div>
             <div id="super-content"></div>
         </div>
 
-        <!-- 5: GASTOS -->
+        <!-- 6: GASTOS -->
         <div id="view-expenses" class="view-section card">
-            <h3 style="margin-top:0;">Cuentas Grupales (USD)</h3>
             <div class="balance-grid" id="balances-content"></div>
-            <h3 style="margin-top:20px;">Registrar Gasto</h3>
             <div class="form-row" style="margin-bottom: 24px;">
                 <input type="text" id="expConcept" placeholder="Concepto" autocomplete="off">
                 <input type="number" id="expAmount" placeholder="Monto" step="0.01">
@@ -189,27 +203,31 @@
                 <select id="expPerson"></select>
                 <button class="btn-add" onclick="addExpense()">Registrar</button>
             </div>
-            <h3>Historial</h3>
             <div id="expenses-list"></div>
         </div>
 
     </div>
 
     <script>
-        // ⚠️ PEGA AQUÍ TU URL DE GOOGLE APPS SCRIPT
+        // ⚠️ PEGA AQUÍ TU URL DE APPS SCRIPT
         const GAS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwGNmGtKkeep8XxpluuHjX3ZKj7dXUSxriMGg_gz7QWL8OwsBMDSSJrE_X33302K_A/exec"; 
         const TASA_FLORIN = 1.80;
 
-        const days = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
+        // Fechas Exactas del Viaje
+        const days = ['Lun 2 Nov', 'Mar 3 Nov', 'Mié 4 Nov', 'Jue 5 Nov', 'Vie 6 Nov', 'Sáb 7 Nov', 'Dom 8 Nov', 'Lun 9 Nov'];
         const people = ['Daniel', 'Carlos', 'Miguel', 'Desiree'];
         
-        let itinerary = JSON.parse(localStorage.getItem('ar26_it')) || [];
-        let reservations = JSON.parse(localStorage.getItem('ar26_res')) || [];
-        let supermarket = JSON.parse(localStorage.getItem('ar26_sup')) || [];
-        let expenses = JSON.parse(localStorage.getItem('ar26_exp')) || [];
-        let packing = JSON.parse(localStorage.getItem('ar26_pack')) || [];
+        let state = {
+            itinerary: JSON.parse(localStorage.getItem('ar26_it')) || [],
+            reservations: JSON.parse(localStorage.getItem('ar26_res')) || [],
+            supermarket: JSON.parse(localStorage.getItem('ar26_sup')) || [],
+            expenses: JSON.parse(localStorage.getItem('ar26_exp')) || [],
+            packing: JSON.parse(localStorage.getItem('ar26_pack')) || [],
+            voting: JSON.parse(localStorage.getItem('ar26_vot')) || []
+        };
         
         let currentDay = days[0];
+        let editingId = null;
 
         window.onload = () => {
             people.forEach(p => {
@@ -227,151 +245,199 @@
             btn.classList.add('active');
         }
 
-        function renderAll() { renderItinerary(); renderReservations(); renderPacking(); renderSuper(); renderExpenses(); }
+        // Motor de Renderizado Único (Optimizado)
+        function renderAll() {
+            renderItinerary(); renderReservations(); renderPacking(); renderSuper(); renderExpenses(); renderVoting();
+        }
+        function setEdit(id) { editingId = id; renderAll(); }
+        function cancelEdit() { editingId = null; renderAll(); }
 
         // --- ITINERARIO ---
         function renderDayNav() { document.getElementById('day-nav').innerHTML = days.map(d => `<button class="day-btn ${currentDay === d ? 'active' : ''}" onclick="setDay('${d}')">${d}</button>`).join(''); }
-        function setDay(d) { currentDay = d; renderDayNav(); renderItinerary(); }
+        function setDay(d) { currentDay = d; editingId = null; renderDayNav(); renderItinerary(); updateWeather(d); }
+        
+        // Simulación lógica del clima en noviembre (Aruba siempre es ~29C y soleado, con lluvias breves)
+        function updateWeather(dayText) {
+            const wBox = document.getElementById('weather-box');
+            if(dayText.includes('Mié') || dayText.includes('Jue')) { wBox.innerHTML = `<div>⛅ Parcialmente Nublado</div><div>28°C / 82°F</div>`; } 
+            else if(dayText.includes('Sáb')) { wBox.innerHTML = `<div>🌦️ Posible lluvia breve</div><div>28°C / 82°F</div>`; } 
+            else { wBox.innerHTML = `<div>☀️ Soleado y Ventoso</div><div>29°C / 84°F</div>`; }
+        }
+
+        function getMinutes(i) { let h = parseInt(i.hour); if(i.ampm === 'PM' && h !== 12) h += 12; if(i.ampm === 'AM' && h === 12) h = 0; return h * 60 + parseInt(i.min); }
+
         function addItinerary() {
-            const time = document.getElementById('itTime').value; const text = document.getElementById('itText').value.trim();
-            if(!time || !text) return alert("Ingresa la hora y la actividad");
-            itinerary.push({ id: 'i_' + Date.now(), day: currentDay, time: time, text: text, assignee: document.getElementById('itPerson').value, completed: false });
+            const text = document.getElementById('itText').value.trim(); if(!text) return;
+            state.itinerary.push({ id: 'i_' + Date.now(), day: currentDay, hour: document.getElementById('itHour').value, min: document.getElementById('itMin').value, ampm: document.getElementById('itAmPm').value, text: text, assignee: document.getElementById('itPerson').value, completed: false });
             document.getElementById('itText').value = ''; saveData();
         }
-        function toggleIt(id) { const i = itinerary.find(x => x.id === id); if(i) { i.completed = !i.completed; saveData(); } }
-        function deleteIt(id) { itinerary = itinerary.filter(i => i.id !== id); saveData(); }
-        function formatTime(time24) { let [h, m] = time24.split(':'); let ampm = h >= 12 ? 'PM' : 'AM'; h = h % 12 || 12; return `${h}:${m} ${ampm}`; }
+        function toggleIt(id) { const i = state.itinerary.find(x => x.id === id); if(i) { i.completed = !i.completed; saveData(); } }
+        function deleteIt(id) { state.itinerary = state.itinerary.filter(i => i.id !== id); saveData(); }
+        function saveEditIt(id) {
+            const i = state.itinerary.find(x => x.id === id);
+            i.hour = document.getElementById(`eh-${id}`).value; i.min = document.getElementById(`em-${id}`).value; i.ampm = document.getElementById(`ea-${id}`).value; i.text = document.getElementById(`et-${id}`).value; i.assignee = document.getElementById(`ep-${id}`).value;
+            editingId = null; saveData();
+        }
 
         function renderItinerary() {
             const container = document.getElementById('it-content');
-            let dayTasks = itinerary.filter(i => i.day === currentDay).sort((a,b) => a.time.localeCompare(b.time));
-            container.innerHTML = dayTasks.length === 0 ? `<p style="text-align:center; color:var(--text-light);">No hay agenda para el ${currentDay}.</p>` : dayTasks.map(t => `
-                <div class="timeline-item" style="${t.completed ? 'opacity:0.5;' : ''}">
-                    <div class="time-badge">${formatTime(t.time)}</div>
-                    <div class="timeline-content">
-                        <div class="timeline-title"><span style="${t.completed ? 'text-decoration:line-through;' : ''}">${t.text}</span><button class="btn-del" onclick="deleteIt('${t.id}')">🗑️</button></div>
-                        <div style="font-size:13px; color:var(--text-light); margin-top:4px;"><input type="checkbox" ${t.completed ? 'checked' : ''} onchange="toggleIt('${t.id}')"> Hecho • 👤 ${t.assignee}</div>
-                    </div>
-                </div>`).join('');
-        }
-        function shareDayWhatsApp() {
-            let dayTasks = itinerary.filter(i => i.day === currentDay).sort((a,b) => a.time.localeCompare(b.time));
-            if(dayTasks.length === 0) return alert("No hay actividades para enviar.");
-            let msg = `*🗓️ Agenda Aruba - ${currentDay}*\n\n`; dayTasks.forEach(t => { msg += `⏰ ${formatTime(t.time)} - ${t.text}\n`; });
-            window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(msg)}`, '_blank');
+            let dayTasks = state.itinerary.filter(i => i.day === currentDay).sort((a,b) => getMinutes(a) - getMinutes(b));
+            
+            if (dayTasks.length === 0) { container.innerHTML = '<p style="text-align:center; color:var(--text-light); margin:40px 0;">Agenda vacía para este día.</p>'; return; }
+
+            container.innerHTML = dayTasks.map(t => {
+                if(t.id === editingId) return `<div class="edit-box"><div style="display:flex; gap:4px;"><select id="eh-${t.id}">${Array.from({length:12}, (_,i)=>`<option value="${String(i+1).padStart(2,'0')}" ${String(i+1).padStart(2,'0')===t.hour?'selected':''}>${String(i+1).padStart(2,'0')}</option>`).join('')}</select><select id="em-${t.id}"><option value="00" ${t.min==='00'?'selected':''}>00</option><option value="15" ${t.min==='15'?'selected':''}>15</option><option value="30" ${t.min==='30'?'selected':''}>30</option><option value="45" ${t.min==='45'?'selected':''}>45</option></select><select id="ea-${t.id}"><option value="AM" ${t.ampm==='AM'?'selected':''}>AM</option><option value="PM" ${t.ampm==='PM'?'selected':''}>PM</option></select></div><input type="text" id="et-${t.id}" value="${t.text}" style="padding:8px;"><select id="ep-${t.id}">${people.map(p => `<option value="${p}" ${p===t.assignee?'selected':''}>${p}</option>`).join('')}</select><div class="edit-actions"><button class="save" onclick="saveEditIt('${t.id}')">Guardar</button><button class="cancel" onclick="cancelEdit()">Cancelar</button></div></div>`;
+                return `<div class="item-box" style="${t.completed ? 'opacity:0.5;' : ''}"><div class="item-row"><div class="time-badge">${t.hour}:${t.min} ${t.ampm}</div><div style="flex:1;"><div style="font-weight:600; font-size:16px;"><span style="${t.completed ? 'text-decoration:line-through;' : ''}">${t.text}</span></div><div style="font-size:13px; color:var(--text-light); margin-top:4px;"><input type="checkbox" ${t.completed ? 'checked' : ''} onchange="toggleIt('${t.id}')"> Hecho • 👤 ${t.assignee}</div></div><button class="btn-edit" onclick="setEdit('${t.id}')">✏️</button><button class="btn-del" onclick="deleteIt('${t.id}')">🗑️</button></div></div>`;
+            }).join('');
         }
 
-        // --- RESERVAS ---
-        function addReservation() {
-            const text = document.getElementById('resText').value.trim(); const link = document.getElementById('resLink').value.trim();
-            if(!text || !link) return alert("Ingresa el detalle y el link del PDF o foto.");
-            reservations.push({ id: 'r_' + Date.now(), category: document.getElementById('resCategory').value, text: text, evidenceLink: link });
-            document.getElementById('resText').value = ''; document.getElementById('resLink').value = ''; saveData();
+        // --- VOTACIONES (NUEVO MÓDULO) ---
+        function addVote() {
+            const title = document.getElementById('voteTitle').value.trim(); if(!title) return;
+            state.voting.push({ id: 'v_' + Date.now(), title: title, votes_Daniel: false, votes_Carlos: false, votes_Miguel: false, votes_Desiree: false });
+            document.getElementById('voteTitle').value = ''; saveData();
         }
-        function deleteRes(id) { reservations = reservations.filter(r => r.id !== id); saveData(); }
-        function shareResWhatsApp(cat, text, link) { window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(`*Nueva Reserva Aruba 🇦🇼*\n${cat}:${text}\n📄 Ver archivo: ${link}`)}`, '_blank'); }
+        function toggleVote(voteId, person) {
+            const v = state.voting.find(x => x.id === voteId);
+            if(v) { v['votes_' + person] = !v['votes_' + person]; saveData(); }
+        }
+        function deleteVote(id) { state.voting = state.voting.filter(v => v.id !== id); saveData(); }
+        
+        function renderVoting() {
+            document.getElementById('vote-content').innerHTML = state.voting.map(v => {
+                let totalVotes = (v.votes_Daniel?1:0) + (v.votes_Carlos?1:0) + (v.votes_Miguel?1:0) + (v.votes_Desiree?1:0);
+                let perc = (totalVotes / 4) * 100;
+                
+                let btns = people.map(p => {
+                    let isVoted = v['votes_' + p];
+                    return `<button class="vote-btn ${isVoted ? 'voted' : ''}" onclick="toggleVote('${v.id}', '${p}')">${p} ${isVoted ? '👍' : ''}</button>`;
+                }).join('');
+
+                return `
+                <div class="vote-item">
+                    <div style="display:flex; justify-content:space-between;">
+                        <span style="font-weight:600;">${v.title}</span><button class="btn-del" onclick="deleteVote('${v.id}')">🗑️</button>
+                    </div>
+                    <div class="vote-bar"><div class="vote-progress" style="width: ${perc}%;"></div></div>
+                    <div style="font-size:12px; color:var(--text-light); margin-bottom:10px;">${totalVotes} de 4 votos</div>
+                    <div class="vote-buttons">${btns}</div>
+                </div>`;
+            }).join('');
+        }
+
+        // --- RESERVAS (DRIVE API) ---
+        function toBase64(file) { return new Promise((resolve, reject) => { const reader = new FileReader(); reader.readAsDataURL(file); reader.onload = () => resolve(reader.result); reader.onerror = e => reject(e); }); }
+
+        async function addReservation() {
+            const text = document.getElementById('resText').value.trim(); const cat = document.getElementById('resCategory').value;
+            let link = document.getElementById('resLink').value.trim(); const fileInput = document.getElementById('resFile');
+            if(!text) return alert("Falta el detalle");
+
+            const btn = document.getElementById('btn-add-res');
+            btn.innerHTML = '⏳ Subiendo a Drive...'; btn.disabled = true;
+
+            try {
+                if (fileInput.files.length > 0) {
+                    const file = fileInput.files[0];
+                    const base64 = await toBase64(file);
+                    const res = await fetch(GAS_WEB_APP_URL, { method: 'POST', headers: {'Content-Type':'text/plain'}, body: JSON.stringify({ action: 'upload', fileName: file.name, mimeType: file.type, base64: base64.split(',')[1] }) });
+                    const data = await res.json(); if (data.url) link = data.url;
+                }
+                state.reservations.push({ id: 'r_' + Date.now(), category: cat, text: text, evidenceLink: link });
+                document.getElementById('resText').value = ''; document.getElementById('resLink').value = ''; fileInput.value = ''; saveData();
+            } catch (e) { alert("Error: Se guardó sin archivo adjunto."); state.reservations.push({ id: 'r_' + Date.now(), category: cat, text: text, evidenceLink: link }); saveData(); }
+            btn.innerHTML = 'Guardar Reserva'; btn.disabled = false;
+        }
+
+        function deleteRes(id) { state.reservations = state.reservations.filter(r => r.id !== id); saveData(); }
+        function saveEditRes(id) {
+            const r = state.reservations.find(x => x.id === id);
+            r.category = document.getElementById(`erc-${id}`).value; r.text = document.getElementById(`ert-${id}`).value; r.evidenceLink = document.getElementById(`erl-${id}`).value;
+            editingId = null; saveData();
+        }
 
         function renderReservations() {
-            document.getElementById('res-content').innerHTML = reservations.length === 0 ? `<p style="text-align:center; color:var(--text-light);">Sin reservas guardadas.</p>` : reservations.map(r => `
-                <div class="res-item">
-                    <div class="res-header"><span class="badge">${r.category}</span><button class="btn-del" onclick="deleteRes('${r.id}')">🗑️</button></div>
-                    <div style="font-weight:600; font-size:16px;">${r.text}</div>
-                    <div class="res-actions"><a href="${r.evidenceLink}" target="_blank" class="btn-doc">📄 Abrir Archivo</a><button class="btn-wa" onclick="shareResWhatsApp('${r.category}', '${r.text}', '${r.evidenceLink}')">💬 Notificar al Grupo</button></div>
-                </div>`).join('');
+            const cats = ['🍽️ Restaurante', '🏖️ Tour/Excursión', '✈️ Vuelo', '🏠 Hospedaje', '🚗 Auto'];
+            document.getElementById('res-content').innerHTML = state.reservations.map(r => {
+                if(r.id === editingId) return `<div class="edit-box"><select id="erc-${r.id}">${cats.map(c => `<option value="${c}" ${c===r.category?'selected':''}>${c}</option>`).join('')}</select><input type="text" id="ert-${r.id}" value="${r.text}" style="padding:8px;"><input type="url" id="erl-${r.id}" value="${r.evidenceLink}" placeholder="Link del archivo" style="padding:8px;"><div class="edit-actions"><button class="save" onclick="saveEditRes('${r.id}')">Guardar</button><button class="cancel" onclick="cancelEdit()">Cancelar</button></div></div>`;
+                return `<div class="item-box"><div style="display:flex; justify-content:space-between; margin-bottom:12px;"><span class="badge">${r.category}</span><div><button class="btn-edit" onclick="setEdit('${r.id}')">✏️</button><button class="btn-del" onclick="deleteRes('${r.id}')">🗑️</button></div></div><div style="font-weight:600; font-size:16px;">${r.text}</div>${r.evidenceLink ? `<div style="margin-top:16px; padding-top:16px; border-top:1px dashed var(--border);"><a href="${r.evidenceLink}" target="_blank" class="btn-doc">📄 Ver detalle</a></div>` : ''}</div>`;
+            }).join('');
         }
 
-        // --- EQUIPAJE ---
-        function addPackItem() {
-            const item = document.getElementById('packItem').value.trim();
-            if(!item) return;
-            packing.push({ id: 'p_' + Date.now(), item: item, category: document.getElementById('packCategory').value, assignee: document.getElementById('packPerson').value, completed: false });
-            document.getElementById('packItem').value = ''; saveData();
-        }
-        function togglePack(id) { const p = packing.find(x => x.id === id); if(p) { p.completed = !p.completed; saveData(); } }
-        function deletePack(id) { packing = packing.filter(p => p.id !== id); saveData(); }
+        // --- EQUIPAJE Y SUPER (CRUD) ---
+        function addPackItem() { const item = document.getElementById('packItem').value.trim(); if(item) { state.packing.push({ id: 'p_' + Date.now(), item: item, category: document.getElementById('packCategory').value, assignee: document.getElementById('packPerson').value, completed: false }); document.getElementById('packItem').value = ''; saveData(); } }
+        function togglePack(id) { const p = state.packing.find(x => x.id === id); if(p) { p.completed = !p.completed; saveData(); } }
+        function deletePack(id) { state.packing = state.packing.filter(p => p.id !== id); saveData(); }
+        function saveEditPack(id) { const p = state.packing.find(x => x.id === id); p.item = document.getElementById(`ept-${id}`).value; p.assignee = document.getElementById(`epa-${id}`).value; editingId = null; saveData(); }
 
         function renderPacking() {
-            const container = document.getElementById('pack-content');
-            if(packing.length === 0) { container.innerHTML = `<p style="text-align:center; color:var(--text-light);">Lista de equipaje vacía.</p>`; return; }
-            const grouped = packing.reduce((acc, obj) => { acc[obj.category] = acc[obj.category] || []; acc[obj.category].push(obj); return acc; }, {});
-            
-            let html = '';
-            for (const category in grouped) {
-                html += `<div class="pack-cat">${category}</div>`;
-                grouped[category].forEach(p => {
-                    let assigneeBadge = p.assignee === 'Sin asignar' ? `<span class="badge" style="background:#FEF3C7; color:#D97706;">⚠️ Libre</span>` : `<span class="badge">👤 ${p.assignee}</span>`;
-                    html += `
-                    <div class="list-item ${p.completed ? 'completed' : ''}">
-                        <input type="checkbox" style="width:20px;height:20px;" ${p.completed ? 'checked' : ''} onchange="togglePack('${p.id}')">
-                        <span class="item-text" style="flex:1; font-weight:500;">${p.item}</span>
-                        ${assigneeBadge}
-                        <button class="btn-del" onclick="deletePack('${p.id}')">🗑️</button>
-                    </div>`;
-                });
-            }
-            container.innerHTML = html;
+            document.getElementById('pack-content').innerHTML = state.packing.map(p => {
+                if(p.id === editingId) return `<div class="edit-box"><input type="text" id="ept-${p.id}" value="${p.item}" style="padding:8px;"><select id="epa-${p.id}"><option value="Todos" ${p.assignee==='Todos'?'selected':''}>Todos</option><option value="Pendiente" ${p.assignee==='Pendiente'?'selected':''}>⚠️ Pendiente</option>${people.map(per => `<option value="${per}" ${per===p.assignee?'selected':''}>${per}</option>`).join('')}</select><div class="edit-actions"><button class="save" onclick="saveEditPack('${p.id}')">Guardar</button><button class="cancel" onclick="cancelEdit()">Cancelar</button></div></div>`;
+                return `<div style="display:flex; align-items:center; padding:12px 0; border-bottom:1px solid #eee; gap:12px;"><input type="checkbox" style="width:20px;height:20px;" ${p.completed ? 'checked' : ''} onchange="togglePack('${p.id}')"><span style="flex:1; ${p.completed ? 'opacity:0.5; text-decoration:line-through;' : ''}">${p.item}</span><span class="badge" style="${p.assignee === 'Pendiente' ? 'background:#FEF3C7; color:#D97706;' : ''}">${p.assignee}</span><button class="btn-edit" onclick="setEdit('${p.id}')">✏️</button><button class="btn-del" onclick="deletePack('${p.id}')">🗑️</button></div>`;
+            }).join('');
         }
 
-        // --- SUPERMERCADO ---
-        function addSuper() { const t = document.getElementById('supItem').value.trim(); if(t) { supermarket.push({ id: 's_' + Date.now(), item: t, completed: false }); document.getElementById('supItem').value = ''; saveData(); } }
-        function toggleSup(id) { const s = supermarket.find(x => x.id === id); if(s) { s.completed = !s.completed; saveData(); } }
-        function deleteSup(id) { supermarket = supermarket.filter(s => s.id !== id); saveData(); }
+        function addSuper() { const t = document.getElementById('supItem').value.trim(); if(t) { state.supermarket.push({ id: 's_' + Date.now(), item: t, completed: false }); document.getElementById('supItem').value = ''; saveData(); } }
+        function toggleSup(id) { const s = state.supermarket.find(x => x.id === id); if(s) { s.completed = !s.completed; saveData(); } }
+        function deleteSup(id) { state.supermarket = state.supermarket.filter(s => s.id !== id); saveData(); }
+        function saveEditSup(id) { const s = state.supermarket.find(x => x.id === id); s.item = document.getElementById(`est-${id}`).value; editingId = null; saveData(); }
+        
         function renderSuper() {
-            document.getElementById('super-content').innerHTML = supermarket.length === 0 ? '' : supermarket.map(s => `
-                <div class="list-item ${s.completed ? 'completed' : ''}">
-                    <input type="checkbox" style="width:20px;height:20px;" ${s.completed ? 'checked' : ''} onchange="toggleSup('${s.id}')">
-                    <span class="item-text" style="flex:1;">${s.item}</span>
-                    <button class="btn-del" onclick="deleteSup('${s.id}')">🗑️</button>
-                </div>`).join('');
+            document.getElementById('super-content').innerHTML = state.supermarket.map(s => {
+                if(s.id === editingId) return `<div class="edit-box"><input type="text" id="est-${s.id}" value="${s.item}" style="padding:8px;"><div class="edit-actions"><button class="save" onclick="saveEditSup('${s.id}')">Guardar</button><button class="cancel" onclick="cancelEdit()">Cancelar</button></div></div>`;
+                return `<div style="display:flex; align-items:center; padding:12px 0; border-bottom:1px solid #eee;"><input type="checkbox" style="margin-right:12px; width:20px;height:20px;" ${s.completed ? 'checked' : ''} onchange="toggleSup('${s.id}')"><span style="flex:1; ${s.completed?'opacity:0.5; text-decoration:line-through;':''}">${s.item}</span><button class="btn-edit" onclick="setEdit('${s.id}')">✏️</button><button class="btn-del" onclick="deleteSup('${s.id}')">🗑️</button></div>`;
+            }).join('');
         }
 
         // --- GASTOS ---
         function addExpense() {
             const concept = document.getElementById('expConcept').value.trim(); const amt = parseFloat(document.getElementById('expAmount').value); const cur = document.getElementById('expCurrency').value;
             if(!concept || isNaN(amt)) return;
-            expenses.push({ id: 'e_' + Date.now(), concept: concept, originalAmount: amt, currency: cur, amountUsd: cur === 'AWG' ? (amt / TASA_FLORIN) : amt, paidBy: document.getElementById('expPerson').value, date: new Date().toLocaleDateString() });
+            state.expenses.push({ id: 'e_' + Date.now(), concept: concept, originalAmount: amt, currency: cur, amountUsd: cur === 'AWG' ? (amt / TASA_FLORIN) : amt, paidBy: document.getElementById('expPerson').value, date: new Date().toLocaleDateString() });
             document.getElementById('expConcept').value = ''; document.getElementById('expAmount').value = ''; saveData();
         }
-        function deleteExp(id) { expenses = expenses.filter(e => e.id !== id); saveData(); }
-        function renderExpenses() {
-            document.getElementById('expenses-list').innerHTML = expenses.map(e => `
-                <div class="exp-item">
-                    <div><strong>${e.concept}</strong><br><small>${e.date} • Pagó ${e.paidBy}</small></div>
-                    <div style="font-weight:700;">${e.currency==='AWG'?`<small style="color:#888;">(${e.originalAmount} AWG)</small>`:''} $${e.amountUsd.toFixed(2)} <button class="btn-del" onclick="deleteExp('${e.id}')">🗑️</button></div>
-                </div>`).join('');
-            
-            let b = { 'Daniel': 0, 'Carlos': 0, 'Miguel': 0, 'Desiree': 0 };
-            expenses.forEach(e => { b[e.paidBy] += e.amountUsd; for (let p in b) b[p] -= (e.amountUsd / 4); });
-            document.getElementById('balances-content').innerHTML = Object.keys(b).map(p => `
-                <div class="balance-card ${b[p] > 0.01 ? 'positive' : b[p] < -0.01 ? 'negative' : ''}" style="${b[p] > 0.01 ? 'background:#F0FDF4;border-color:#BBF7D0;' : b[p] < -0.01 ? 'background:#FEF2F2;border-color:#FECACA;' : ''}">
-                    <div>${p}</div><div style="font-size:20px; font-weight:700; margin-top:4px; ${b[p] > 0.01 ? 'color:#166534;' : b[p] < -0.01 ? 'color:#991B1B;' : ''}">${b[p] > 0.01 ? '+' : ''}$${b[p].toFixed(2)}</div>
-                </div>`).join('');
+        function deleteExp(id) { state.expenses = state.expenses.filter(e => e.id !== id); saveData(); }
+        function saveEditExp(id) {
+            const e = state.expenses.find(x => x.id === id);
+            e.concept = document.getElementById(`eec-${id}`).value; e.originalAmount = parseFloat(document.getElementById(`eea-${id}`).value); e.currency = document.getElementById(`eeu-${id}`).value; e.paidBy = document.getElementById(`eep-${id}`).value; e.amountUsd = e.currency === 'AWG' ? (e.originalAmount / TASA_FLORIN) : e.originalAmount;
+            editingId = null; saveData();
         }
 
-        // --- SINCRONIZACIÓN ---
+        function renderExpenses() {
+            document.getElementById('expenses-list').innerHTML = state.expenses.map(e => {
+                if(e.id === editingId) return `<div class="edit-box"><input type="text" id="eec-${e.id}" value="${e.concept}" style="padding:8px;"><div style="display:flex; gap:4px;"><input type="number" id="eea-${e.id}" value="${e.originalAmount}" step="0.01" style="padding:8px; flex:1;"><select id="eeu-${e.id}"><option value="USD" ${e.currency==='USD'?'selected':''}>USD</option><option value="AWG" ${e.currency==='AWG'?'selected':''}>AWG</option></select><select id="eep-${e.id}">${people.map(p => `<option value="${p}" ${p===e.paidBy?'selected':''}>${p}</option>`).join('')}</select></div><div class="edit-actions"><button class="save" onclick="saveEditExp('${e.id}')">Guardar</button><button class="cancel" onclick="cancelEdit()">Cancelar</button></div></div>`;
+                return `<div style="display:flex; justify-content:space-between; padding:12px 0; border-bottom:1px solid #eee; align-items:center;"><div><strong>${e.concept}</strong><br><small>${e.date} • Pagó ${e.paidBy}</small></div><div style="font-weight:700;">${e.currency==='AWG'?`<small style="color:#888;">(${e.originalAmount} AWG)</small>`:''} $${e.amountUsd.toFixed(2)} <button class="btn-edit" onclick="setEdit('${e.id}')">✏️</button><button class="btn-del" onclick="deleteExp('${e.id}')">🗑️</button></div></div>`;
+            }).join('');
+            
+            let b = { 'Daniel': 0, 'Carlos': 0, 'Miguel': 0, 'Desiree': 0 };
+            state.expenses.forEach(e => { b[e.paidBy] += e.amountUsd; for (let p in b) b[p] -= (e.amountUsd / 4); });
+            document.getElementById('balances-content').innerHTML = Object.keys(b).map(p => `<div class="balance-card" style="${b[p] > 0.01 ? 'background:#F0FDF4;border-color:#BBF7D0;' : b[p] < -0.01 ? 'background:#FEF2F2;border-color:#FECACA;' : ''}"><div>${p}</div><div style="font-size:20px; font-weight:700; margin-top:4px; ${b[p] > 0.01 ? 'color:#166534;' : b[p] < -0.01 ? 'color:#991B1B;' : ''}">${b[p] > 0.01 ? '+' : ''}$${b[p].toFixed(2)}</div></div>`).join('');
+        }
+
+        // --- MANEJO DE ESTADO Y SINCRONIZACIÓN ---
         function saveData() {
-            localStorage.setItem('ar26_it', JSON.stringify(itinerary)); localStorage.setItem('ar26_res', JSON.stringify(reservations));
-            localStorage.setItem('ar26_sup', JSON.stringify(supermarket)); localStorage.setItem('ar26_exp', JSON.stringify(expenses));
-            localStorage.setItem('ar26_pack', JSON.stringify(packing));
+            localStorage.setItem('ar26_it', JSON.stringify(state.itinerary)); localStorage.setItem('ar26_res', JSON.stringify(state.reservations));
+            localStorage.setItem('ar26_sup', JSON.stringify(state.supermarket)); localStorage.setItem('ar26_exp', JSON.stringify(state.expenses));
+            localStorage.setItem('ar26_pack', JSON.stringify(state.packing)); localStorage.setItem('ar26_vot', JSON.stringify(state.voting));
             renderAll(); syncWithCloud('POST');
         }
 
         async function syncWithCloud(method = 'GET') {
-            const status = document.getElementById('sync-status');
-            if (!GAS_WEB_APP_URL) { status.innerHTML = '🔴 Local'; return; }
-            status.innerHTML = '🟡 Guardando...';
+            const statusIndicator = document.getElementById('sync-status');
+            if (!GAS_WEB_APP_URL) return;
+            statusIndicator.innerHTML = '🟡 Sincronizando...';
             try {
                 if (method === 'POST') {
-                    await fetch(GAS_WEB_APP_URL, { method: 'POST', mode: 'no-cors', headers: {'Content-Type':'text/plain'}, body: JSON.stringify({ itinerary, reservations, supermarket, expenses, packing }) });
-                    status.innerHTML = '🟢 Sincronizado';
+                    await fetch(GAS_WEB_APP_URL, { method: 'POST', headers: {'Content-Type':'text/plain'}, body: JSON.stringify(state) });
+                    statusIndicator.innerHTML = '🟢 Sincronizado';
                 } else {
                     const res = await fetch(GAS_WEB_APP_URL); const data = await res.json();
-                    if(data.itinerary) itinerary = data.itinerary; if(data.reservations) reservations = data.reservations;
-                    if(data.supermarket) supermarket = data.supermarket; if(data.expenses) expenses = data.expenses;
-                    if(data.packing) packing = data.packing;
-                    saveData(); status.innerHTML = '🟢 Sincronizado';
+                    if(data.itinerary) state.itinerary = data.itinerary; if(data.reservations) state.reservations = data.reservations;
+                    if(data.supermarket) state.supermarket = data.supermarket; if(data.expenses) state.expenses = data.expenses;
+                    if(data.packing) state.packing = data.packing; if(data.voting) state.voting = data.voting;
+                    saveData(); statusIndicator.innerHTML = '🟢 Sincronizado';
                 }
-            } catch (e) { status.innerHTML = '🔴 Sin red'; }
+            } catch (e) { statusIndicator.innerHTML = '🔴 Sin conexión'; }
         }
     </script>
 </body>
