@@ -3,231 +3,160 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Viaje a Aruba 🇦🇼</title>
+    <title>Aruba 2026 🇦🇼</title>
     
     <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
     <style>
+        /* Refero-inspired Minimalist UI */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
         :root {
-            /* Paleta temática Aruba: Agua cristalina, arena y coral */
-            --primary: #00A896; /* Turquesa caribe */
-            --primary-dark: #028090;
-            --accent: #FF7B54; /* Coral/Flamingo */
-            --bg-body: #F4F9F9;
+            --bg-color: #F7F7F8;
             --card-bg: #FFFFFF;
-            --text-main: #2C3E50;
-            --text-muted: #7F8C8D;
-            --border: #E0EBEB;
-            --hover-bg: #EAF4F4;
-            --success: #00A699;
+            --text-main: #111111;
+            --text-muted: #666666;
+            --border: #E5E5E5;
+            --primary: #111111;
+            --primary-hover: #333333;
+            --accent: #00A896; 
+            --radius-lg: 20px;
+            --radius-md: 12px;
+            --shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--bg-body);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-color);
             color: var(--text-main);
             margin: 0;
             padding: 0;
             -webkit-font-smoothing: antialiased;
         }
 
+        /* Hero Moderno */
         .hero {
-            /* Imagen de playa en Aruba */
-            background: linear-gradient(to bottom, rgba(0,168,150,0.2), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1544281679-052a210740e5?auto=format&fit=crop&w=1200&q=80') center/cover;
-            height: 240px;
+            background: #111;
+            background-image: url('https://images.unsplash.com/photo-1544281679-052a210740e5?auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 280px;
             display: flex;
             align-items: flex-end;
-            padding: 20px;
+            padding: 30px;
             color: white;
             position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0.2));
         }
 
         .hero-content {
             max-width: 800px;
-            margin: 0 auto;
+            margin: 0 auto; 
             width: 100%;
-            display: flex;
-            justify-content: space-between;
+            display: flex; 
+            justify-content: space-between; 
             align-items: flex-end;
-        }
-
-        .hero h1 {
-            margin: 0 0 5px 0;
-            font-size: 34px;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
-        }
-        
-        .hero p {
-            margin: 0 0 15px 0;
-            font-size: 16px;
-            opacity: 0.9;
-        }
-
-        .top-controls {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-            gap: 10px;
-        }
-
-        .sync-badge {
-            background: rgba(0,0,0,0.5);
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            backdrop-filter: blur(5px);
-        }
-
-        .btn-export {
-            background: var(--accent);
-            color: white;
-            border: none;
-            padding: 10px 16px;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-            transition: background 0.2s;
-        }
-        .btn-export:hover { background: #E66A45; }
-
-        .container {
-            max-width: 800px;
-            margin: -20px auto 50px;
-            padding: 0 20px;
             position: relative;
-            z-index: 10;
+            z-index: 1;
         }
 
-        .tabs {
-            display: flex;
-            background: var(--card-bg);
-            border-radius: 12px 12px 0 0;
-            overflow: hidden;
-            border: 1px solid var(--border);
-            border-bottom: none;
-        }
-        .tab-btn {
-            flex: 1;
-            padding: 16px;
-            background: #F8FBFB;
-            border: none;
-            font-size: 16px;
-            font-weight: 600;
-            color: var(--text-muted);
-            cursor: pointer;
-            transition: 0.2s;
-        }
-        .tab-btn.active {
-            background: var(--card-bg);
-            color: var(--primary-dark);
-            border-bottom: 3px solid var(--primary);
-        }
+        .hero h1 { margin: 0 0 8px 0; font-size: 40px; font-weight: 700; letter-spacing: -1px; }
+        .hero p { margin: 0; font-size: 16px; font-weight: 400; opacity: 0.9; }
+        
+        .top-controls { display: flex; flex-direction: column; align-items: flex-end; gap: 12px; }
+        .sync-badge { background: rgba(255,255,255,0.15); padding: 6px 14px; border-radius: 99px; font-size: 13px; font-weight: 500; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); }
+        .btn-export { background: #FFFFFF; color: #111; border: none; padding: 10px 20px; border-radius: 99px; font-weight: 600; cursor: pointer; transition: 0.2s; font-size: 14px; }
+        .btn-export:hover { background: #E5E5E5; }
 
-        .card {
-            background: var(--card-bg);
-            border-radius: 0 0 12px 12px;
-            box-shadow: 0 8px 24px rgba(0,168,150,0.08);
-            padding: 20px;
-            margin-bottom: 24px;
-            border: 1px solid var(--border);
-            border-top: none;
-        }
+        .container { max-width: 800px; margin: -30px auto 50px; padding: 0 20px; position: relative; z-index: 10; }
 
+        /* Pestañas tipo Pill */
+        .tabs { display: flex; gap: 8px; margin-bottom: 24px; background: rgba(255,255,255,0.8); padding: 8px; border-radius: 99px; backdrop-filter: blur(10px); border: 1px solid var(--border); width: fit-content; }
+        .tab-btn { padding: 10px 24px; background: transparent; border: none; font-size: 15px; font-weight: 600; color: var(--text-muted); cursor: pointer; border-radius: 99px; transition: 0.2s; }
+        .tab-btn.active { background: var(--primary); color: #FFFFFF; }
+
+        .card { background: var(--card-bg); border-radius: var(--radius-lg); box-shadow: var(--shadow); padding: 32px; margin-bottom: 24px; border: 1px solid var(--border); }
         .view-section { display: none; }
         .view-section.active { display: block; }
 
-        .filters {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-            overflow-x: auto;
-            scrollbar-width: none;
-        }
+        /* Filtros */
+        .filters { display: flex; gap: 8px; margin-bottom: 24px; overflow-x: auto; scrollbar-width: none; }
         .filters::-webkit-scrollbar { display: none; }
-        .filter-btn {
-            padding: 8px 18px;
-            border-radius: 24px;
-            border: 1px solid var(--primary);
-            background: var(--card-bg);
-            color: var(--primary);
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 14px;
-        }
-        .filter-btn.active { background: var(--primary); color: white; }
+        .filter-btn { padding: 8px 20px; border-radius: 99px; border: 1px solid var(--border); background: var(--bg-color); color: var(--text-muted); cursor: pointer; font-weight: 500; font-size: 14px; transition: 0.2s;}
+        .filter-btn:hover { border-color: var(--text-main); color: var(--text-main); }
+        .filter-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
 
-        /* Formularios */
-        .form-row { display: flex; gap: 10px; flex-wrap: wrap; }
-        .form-row input, .form-row select {
-            flex: 1;
-            min-width: 150px;
-            padding: 12px;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            font-size: 15px;
-            outline: none;
-        }
-        .form-row input:focus { border-color: var(--primary); }
-        .form-row button {
-            padding: 12px 24px;
-            background: var(--primary);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 15px;
-            font-weight: bold;
-            cursor: pointer;
-        }
+        /* Navegación por Días */
+        .day-nav { display: flex; gap: 8px; margin-bottom: 30px; overflow-x: auto; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+        .day-nav::-webkit-scrollbar { height: 4px; }
+        .day-nav::-webkit-scrollbar-thumb { background: #DDD; border-radius: 10px; }
+        .day-btn { padding: 8px 16px; border: none; background: transparent; color: var(--text-muted); font-size: 15px; font-weight: 600; cursor: pointer; border-radius: 8px; white-space: nowrap; transition: 0.2s;}
+        .day-btn:hover { color: var(--text-main); }
+        .day-btn.active { background: var(--bg-color); color: var(--text-main); }
+
+        /* Formularios Clean */
+        .form-row { display: flex; gap: 12px; flex-wrap: wrap; background: #FFFFFF; padding: 0; margin-bottom: 30px;}
+        .form-row input, .form-row select { flex: 1; min-width: 140px; padding: 14px 16px; border: 1px solid var(--border); border-radius: var(--radius-md); font-size: 15px; outline: none; transition: 0.2s; font-family: 'Inter', sans-serif;}
+        .form-row input:focus, .form-row select:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(17,17,17,0.1); }
+        .form-row button { padding: 14px 24px; background: var(--primary); color: white; border: none; border-radius: var(--radius-md); font-size: 15px; font-weight: 600; cursor: pointer; transition: 0.2s; white-space: nowrap;}
+        .form-row button:hover { background: var(--primary-hover); }
 
         /* Itinerario */
-        .day-container { margin-bottom: 24px; }
-        .day-header { font-size: 20px; font-weight: 700; margin: 20px 0 10px; display: flex; align-items: center; gap: 8px; color: var(--primary-dark); }
-        .day-header::before { content: '🌴'; font-size: 22px; }
+        .task-list { min-height: 50px; }
+        .task-item { display: flex; align-items: center; padding: 16px; background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius-md); margin-bottom: 12px; gap: 16px; cursor: grab; transition: 0.2s; }
+        .task-item:hover { border-color: #CCC; }
+        .task-item:active { cursor: grabbing; box-shadow: 0 8px 24px rgba(0,0,0,0.08); transform: translateY(-2px);}
         
-        .task-list { min-height: 10px; }
+        .task-checkbox { width: 22px; height: 22px; cursor: pointer; accent-color: var(--primary); flex-shrink: 0; border: 1px solid var(--border); border-radius: 6px;}
         
-        .task-item {
-            display: flex; align-items: center; padding: 14px;
-            background: var(--card-bg); border: 1px solid var(--border);
-            border-radius: 8px; margin-bottom: 8px; gap: 12px;
-            cursor: grab; transition: box-shadow 0.2s;
-        }
-        .task-item:active { cursor: grabbing; }
-        .task-checkbox { width: 20px; height: 20px; cursor: pointer; accent-color: var(--primary); }
-        .task-text { flex: 1; font-size: 16px; }
-        .task-assignee { background: var(--hover-bg); color: var(--primary-dark); padding: 4px 10px; border-radius: 12px; font-size: 12px; font-weight: 600; }
-        .task-item.completed { opacity: 0.5; cursor: default; }
+        .task-content { flex: 1; display: flex; flex-direction: column; gap: 6px; }
+        .task-text { font-size: 16px; font-weight: 500; color: var(--text-main); }
+        .task-meta { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+        
+        .task-assignee { color: var(--text-muted); font-size: 13px; font-weight: 500; }
+        
+        /* Badges Minimalistas */
+        .task-category { font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 99px; background: var(--bg-color); color: var(--text-main); border: 1px solid var(--border);}
+        
+        .task-item.completed { opacity: 0.5; background: transparent; border-style: dashed; }
         .task-item.completed .task-text { text-decoration: line-through; }
         
-        .task-actions button { background: none; border: none; cursor: pointer; font-size: 16px; padding: 4px; }
-        
-        /* Modo Edición Inline (Solución a valores default) */
-        .edit-mode {
-            flex-wrap: wrap; background: #FFF9F5; border-color: var(--accent);
-        }
-        .edit-mode input[type="text"] { flex: 1; min-width: 100%; padding: 8px; border: 1px solid var(--border); border-radius: 6px; margin-bottom: 8px;}
-        .edit-mode select { padding: 8px; border: 1px solid var(--border); border-radius: 6px; }
-        .edit-mode button { background: var(--primary); color: white; border-radius: 6px; padding: 6px 12px; font-size: 14px; }
-        .edit-mode button.cancel { background: #E74C3C; }
+        .task-actions button { background: none; border: none; cursor: pointer; font-size: 16px; padding: 8px; border-radius: 8px; color: var(--text-muted); transition: 0.2s;}
+        .task-actions button:hover { background: var(--bg-color); color: var(--text-main); }
+
+        /* Edición Inline */
+        .edit-mode { flex-direction: column; align-items: flex-start; background: var(--bg-color); border-color: var(--border); cursor: default; }
+        .edit-row { display: flex; gap: 8px; width: 100%; margin-top: 8px; flex-wrap: wrap; }
+        .edit-mode input[type="text"] { width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 8px; font-size:15px; box-sizing: border-box; font-family: 'Inter';}
+        .edit-mode select { padding: 10px; border: 1px solid var(--border); border-radius: 8px; flex:1; min-width: 120px; font-family: 'Inter';}
+        .edit-mode button { background: var(--primary); color: white; border-radius: 8px; padding: 10px 16px; border:none; font-weight:600; cursor:pointer;}
+        .edit-mode button.cancel { background: transparent; border: 1px solid var(--border); color: var(--text-main); }
 
         /* Gastos */
-        .balance-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-bottom: 30px; }
-        .balance-card { padding: 15px; border-radius: 12px; border: 1px solid var(--border); text-align: center; }
-        .balance-card.positive { background: #EAF4F4; border-color: #A9D5D3; color: var(--primary-dark); }
-        .balance-card.negative { background: #FDECEC; border-color: #F7B5B5; color: #C0392B; }
-        .balance-amount { font-size: 22px; font-weight: bold; margin-top: 5px; }
+        h3 { font-size: 20px; font-weight: 700; margin-top: 0; margin-bottom: 16px; letter-spacing: -0.5px; }
+        .balance-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 16px; margin-bottom: 40px; }
+        .balance-card { padding: 20px; border-radius: var(--radius-md); border: 1px solid var(--border); text-align: center; background: var(--bg-color); }
+        .balance-card.positive { background: #F0FDF4; border-color: #BBF7D0; color: #166534; }
+        .balance-card.negative { background: #FEF2F2; border-color: #FECACA; color: #991B1B; }
+        .balance-amount { font-size: 24px; font-weight: 700; margin-top: 8px; letter-spacing: -0.5px; }
 
-        .expense-item { display: flex; justify-content: space-between; padding: 12px; border-bottom: 1px solid var(--border); align-items: center; }
-        .expense-info strong { display: block; font-size: 15px; }
-        .expense-info small { color: var(--text-muted); font-size: 13px; }
-        .expense-amount { font-weight: bold; font-size: 16px; display: flex; gap: 15px; align-items: center;}
-
+        .expense-item { display: flex; justify-content: space-between; padding: 16px 0; border-bottom: 1px solid var(--border); align-items: center; }
+        .expense-item:last-child { border-bottom: none; }
+        
         @media (max-width: 600px) {
             .form-row input, .form-row select, .form-row button { min-width: 100%; flex: none; }
-            .hero-content { flex-direction: column; align-items: flex-start; gap: 10px; }
+            .hero-content { flex-direction: column; align-items: flex-start; gap: 16px; }
             .top-controls { align-items: flex-start; }
+            .task-item { flex-wrap: wrap; }
+            .task-actions { width: 100%; display: flex; justify-content: flex-end; border-top: 1px solid var(--border); padding-top: 12px;}
+            .card { padding: 20px; }
         }
     </style>
 </head>
@@ -236,12 +165,12 @@
     <div class="hero">
         <div class="hero-content">
             <div>
-                <h1>Aruba 2026 🇦🇼</h1>
+                <h1>Aruba 2026</h1>
                 <p>Itinerario y Cuentas Claras</p>
             </div>
             <div class="top-controls">
                 <span class="sync-badge" id="sync-status">🟡 Conectando...</span>
-                <button class="btn-export" onclick="exportItinerary()">📸 Exportar</button>
+                <button class="btn-export" onclick="exportItinerary()">Exportar Vista</button>
             </div>
         </div>
     </div>
@@ -249,65 +178,76 @@
     <div class="container">
         
         <div class="tabs">
-            <button class="tab-btn active" id="tab-itinerary" onclick="switchTab('itinerary')">📍 Itinerario</button>
-            <button class="tab-btn" id="tab-expenses" onclick="switchTab('expenses')">💸 Gastos</button>
+            <button class="tab-btn active" id="tab-itinerary" onclick="switchTab('itinerary')">Itinerario</button>
+            <button class="tab-btn" id="tab-expenses" onclick="switchTab('expenses')">Gastos</button>
         </div>
 
+        <!-- VISTA ITINERARIO -->
         <div id="view-itinerary" class="view-section active card">
+            
             <div class="filters" id="filters"></div>
             
-            <div class="form-row" style="margin-bottom: 20px;">
-                <input type="text" id="taskText" placeholder="Ej. Reservar tour en catamarán..." autocomplete="off" onkeypress="handleEnter(event, addTask)">
-                <select id="taskDay"></select>
+            <div class="day-nav" id="day-nav"></div>
+            
+            <div class="form-row">
+                <input type="text" id="taskText" placeholder="Añadir nueva actividad..." autocomplete="off" onkeypress="handleEnter(event, addTask)">
+                <select id="taskCategory">
+                    <option value="Tour / Actividad">Tour / Actividad</option>
+                    <option value="Desayuno">Desayuno</option>
+                    <option value="Almuerzo">Almuerzo</option>
+                    <option value="Cena">Cena</option>
+                    <option value="Trámite / Contrato">Trámite / Contrato</option>
+                    <option value="Transporte">Transporte</option>
+                    <option value="Otro">Otro</option>
+                </select>
                 <select id="taskPerson"></select>
-                <button onclick="addTask()">➕ Agregar</button>
+                <button onclick="addTask()">Agregar</button>
             </div>
 
             <div id="itinerary-content"></div>
         </div>
 
+        <!-- VISTA GASTOS -->
         <div id="view-expenses" class="view-section card">
-            <h3 style="color: var(--primary-dark)">Resumen de Cuentas</h3>
+            <h3>Resumen de Cuentas</h3>
             <div class="balance-grid" id="balances-content"></div>
 
-            <h3 style="margin-top:30px; margin-bottom: 10px; color: var(--primary-dark)">Registrar Gasto</h3>
-            <p style="font-size:13px; color:#717171; margin-top:0;">*Se divide entre Daniel, Carlos, Miguel y Desiree</p>
+            <h3 style="margin-top:20px;">Registrar Gasto</h3>
             <div class="form-row" style="margin-bottom: 30px;">
-                <input type="text" id="expConcept" placeholder="Ej. Alquiler de Jeep" autocomplete="off">
-                <input type="number" id="expAmount" placeholder="Monto total ($)" step="0.01">
+                <input type="text" id="expConcept" placeholder="Concepto" autocomplete="off">
+                <input type="number" id="expAmount" placeholder="Monto ($)" step="0.01">
                 <select id="expPerson"></select>
                 <button onclick="addExpense()">Registrar</button>
             </div>
 
-            <h3 style="color: var(--primary-dark)">Historial de Gastos</h3>
+            <h3>Historial</h3>
             <div id="expenses-list"></div>
         </div>
 
     </div>
 
     <script>
-        /* =========================================================
-           1. CONFIGURACIÓN Y ESTADO
-        ========================================================= */
+        const GAS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwGNmGtKkeep8XxpluuHjX3ZKj7dXUSxriMGg_gz7QWL8OwsBMDSSJrE_X33302K_A/exec"; 
+
         const days = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
         const people = ['Daniel', 'Carlos', 'Miguel', 'Desiree'];
+        const categories = ['Tour / Actividad', 'Desayuno', 'Almuerzo', 'Cena', 'Trámite / Contrato', 'Transporte', 'Otro'];
         
         let tasks = JSON.parse(localStorage.getItem('aruba_tasks')) || [];
         let expenses = JSON.parse(localStorage.getItem('aruba_expenses')) || [];
+        
         let currentFilter = 'Todos';
-        let editingTaskId = null; // Controla qué tarea se está editando
-
-        // ⚠️ PEGA AQUÍ LA URL GENERADA POR GOOGLE APPS SCRIPT
-        const GAS_WEB_APP_URL = "PEGAR_AQUI_TU_URL_DE_APPS_SCRIPT"; 
+        let currentDay = days[0];
+        let editingTaskId = null;
 
         window.onload = () => {
-            days.forEach(d => document.getElementById('taskDay').add(new Option(d, d)));
             people.forEach(p => {
                 document.getElementById('taskPerson').add(new Option(p, p));
                 document.getElementById('expPerson').add(new Option(p, p));
             });
 
             renderFilters();
+            renderDayNav();
             renderTasks();
             renderExpenses();
             syncWithCloud('GET'); 
@@ -322,16 +262,19 @@
 
         function handleEnter(e, callback) { if (e.key === 'Enter') callback(); }
 
-        /* =========================================================
-           2. LÓGICA DE ITINERARIO (CRUD)
-        ========================================================= */
         function renderFilters() {
             document.getElementById('filters').innerHTML = ['Todos', ...people].map(f =>
                 `<button class="filter-btn ${currentFilter === f ? 'active' : ''}" onclick="setFilter('${f}')">${f}</button>`
             ).join('');
         }
-
         function setFilter(f) { currentFilter = f; renderFilters(); renderTasks(); }
+
+        function renderDayNav() {
+            document.getElementById('day-nav').innerHTML = days.map(d =>
+                `<button class="day-btn ${currentDay === d ? 'active' : ''}" onclick="setDay('${d}')">${d}</button>`
+            ).join('');
+        }
+        function setDay(d) { currentDay = d; renderDayNav(); renderTasks(); }
 
         function addTask() {
             const text = document.getElementById('taskText').value.trim();
@@ -339,8 +282,9 @@
             tasks.push({
                 id: 't_' + Date.now(),
                 text: text,
-                day: document.getElementById('taskDay').value,
+                day: currentDay,
                 assignee: document.getElementById('taskPerson').value,
+                category: document.getElementById('taskCategory').value,
                 completed: false
             });
             document.getElementById('taskText').value = '';
@@ -353,136 +297,89 @@
             if(t) { t.completed = !t.completed; saveData(); }
         }
 
-        // --- SISTEMA DE EDICIÓN CORREGIDO ---
-        function startEdit(id) {
-            editingTaskId = id;
-            renderTasks();
-        }
-
+        function startEdit(id) { editingTaskId = id; renderTasks(); }
+        function cancelEdit() { editingTaskId = null; renderTasks(); }
         function saveEdit(id) {
-            const newText = document.getElementById(`edit-text-${id}`).value.trim();
-            const newDay = document.getElementById(`edit-day-${id}`).value;
-            const newAssignee = document.getElementById(`edit-person-${id}`).value;
-
-            if (newText) {
-                const task = tasks.find(t => t.id === id);
-                task.text = newText;
-                task.day = newDay;
-                task.assignee = newAssignee;
-                editingTaskId = null;
-                saveData();
-            }
-        }
-
-        function cancelEdit() {
+            const t = tasks.find(x => x.id === id);
+            t.text = document.getElementById(`edit-text-${id}`).value.trim();
+            t.day = document.getElementById(`edit-day-${id}`).value;
+            t.assignee = document.getElementById(`edit-person-${id}`).value;
+            t.category = document.getElementById(`edit-cat-${id}`).value;
             editingTaskId = null;
-            renderTasks();
+            saveData();
         }
-        // ------------------------------------
 
         function renderTasks() {
             const container = document.getElementById('itinerary-content');
-            container.innerHTML = '';
+            let dayTasks = tasks.filter(t => t.day === currentDay && (currentFilter === 'Todos' || t.assignee === currentFilter));
+            const active = dayTasks.filter(t => !t.completed);
+            const completed = dayTasks.filter(t => t.completed);
 
-            days.forEach(day => {
-                let dayTasks = tasks.filter(t => t.day === day && (currentFilter === 'Todos' || t.assignee === currentFilter));
-                const active = dayTasks.filter(t => !t.completed);
-                const completed = dayTasks.filter(t => t.completed);
+            let html = `<div class="task-list" id="sortable-list">`;
 
-                const dayDiv = document.createElement('div');
-                dayDiv.className = 'day-container';
-                dayDiv.innerHTML = `<div class="day-header">${day}</div>`;
-                
-                const listDiv = document.createElement('div');
-                listDiv.className = 'task-list';
-                listDiv.dataset.day = day;
+            if (dayTasks.length === 0) {
+                html += `<div style="text-align:center; padding:40px 20px; color:var(--text-muted); font-size:15px;">Día libre. Añade una actividad para el ${currentDay}.</div>`;
+            } else {
+                active.forEach(t => html += renderTaskHTML(t));
+            }
+            html += `</div>`;
 
-                if (dayTasks.length === 0) {
-                    listDiv.innerHTML = `<div style="color:#7F8C8D; font-size:14px; padding:10px;">Día libre.</div>`;
-                } else {
-                    active.forEach(t => {
-                        const item = document.createElement('div');
-                        item.className = 'task-item';
-                        item.dataset.id = t.id;
+            if (completed.length > 0) {
+                html += `<h4 style="color:var(--text-muted); font-weight:600; font-size:13px; text-transform:uppercase; letter-spacing:1px; border-top:1px solid var(--border); padding-top:24px; margin-top:24px;">Completadas</h4>`;
+                completed.forEach(t => html += renderTaskHTML(t));
+            }
 
-                        // Si esta tarea está en modo edición, pintar el formulario precargado
-                        if (t.id === editingTaskId) {
-                            item.classList.add('edit-mode');
-                            item.innerHTML = `
-                                <input type="text" id="edit-text-${t.id}" value="${t.text}">
-                                <div style="display:flex; gap:10px; width:100%; margin-top:5px;">
-                                    <select id="edit-day-${t.id}">
-                                        ${days.map(d => `<option value="${d}" ${d===t.day?'selected':''}>${d}</option>`).join('')}
-                                    </select>
-                                    <select id="edit-person-${t.id}">
-                                        ${people.map(p => `<option value="${p}" ${p===t.assignee?'selected':''}>${p}</option>`).join('')}
-                                    </select>
-                                    <button onclick="saveEdit('${t.id}')">💾 Guardar</button>
-                                    <button class="cancel" onclick="cancelEdit()">❌ Cancelar</button>
-                                </div>
-                            `;
-                        } else {
-                            item.innerHTML = `
-                                <input type="checkbox" class="task-checkbox" onchange="toggleTask('${t.id}')">
-                                <span class="task-text">${t.text}</span>
-                                <span class="task-assignee">${t.assignee}</span>
-                                <div class="task-actions">
-                                    <button onclick="startEdit('${t.id}')" title="Editar">✏️</button>
-                                    <button onclick="deleteTask('${t.id}')" title="Eliminar">🗑️</button>
-                                </div>
-                            `;
-                        }
-                        listDiv.appendChild(item);
-                    });
-                }
-                
-                dayDiv.appendChild(listDiv);
+            container.innerHTML = html;
 
-                if (completed.length > 0) {
-                    const compDiv = document.createElement('div');
-                    compDiv.style.marginTop = "10px";
-                    completed.forEach(t => {
-                        compDiv.innerHTML += `
-                        <div class="task-item completed">
-                            <input type="checkbox" class="task-checkbox" checked onchange="toggleTask('${t.id}')">
-                            <span class="task-text">${t.text}</span>
-                            <span class="task-assignee">${t.assignee}</span>
-                            <div class="task-actions"><button onclick="deleteTask('${t.id}')">🗑️</button></div>
-                        </div>`;
-                    });
-                    dayDiv.appendChild(compDiv);
-                }
-
-                container.appendChild(dayDiv);
-
-                if (currentFilter === 'Todos' && editingTaskId === null) {
-                    new Sortable(listDiv, {
-                        group: 'shared',
-                        animation: 150,
-                        onEnd: function (evt) {
-                            const taskId = evt.item.dataset.id;
-                            const newDay = evt.to.dataset.day;
-                            const task = tasks.find(t => t.id === taskId);
-                            if(task) task.day = newDay; 
-                            saveData(); 
-                        }
-                    });
-                }
-            });
+            if (currentFilter === 'Todos' && editingTaskId === null && dayTasks.length > 0) {
+                new Sortable(document.getElementById('sortable-list'), {
+                    animation: 150,
+                    onEnd: function () { saveData(); } 
+                });
+            }
         }
 
-        /* =========================================================
-           3. LÓGICA DE GASTOS
-        ========================================================= */
+        function renderTaskHTML(t) {
+            const isEdit = t.id === editingTaskId;
+            const cat = t.category || 'Otro'; 
+
+            if (isEdit) {
+                return `
+                <div class="task-item edit-mode">
+                    <input type="text" id="edit-text-${t.id}" value="${t.text}">
+                    <div class="edit-row">
+                        <select id="edit-cat-${t.id}">${categories.map(c => `<option value="${c}" ${c===cat?'selected':''}>${c}</option>`).join('')}</select>
+                        <select id="edit-day-${t.id}">${days.map(d => `<option value="${d}" ${d===t.day?'selected':''}>${d}</option>`).join('')}</select>
+                        <select id="edit-person-${t.id}">${people.map(p => `<option value="${p}" ${p===t.assignee?'selected':''}>${p}</option>`).join('')}</select>
+                        <button onclick="saveEdit('${t.id}')">Guardar</button>
+                        <button class="cancel" onclick="cancelEdit()">Cancelar</button>
+                    </div>
+                </div>`;
+            }
+
+            return `
+            <div class="task-item ${t.completed ? 'completed' : ''}" data-id="${t.id}">
+                <input type="checkbox" class="task-checkbox" ${t.completed ? 'checked' : ''} onchange="toggleTask('${t.id}')">
+                <div class="task-content">
+                    <span class="task-text">${t.text}</span>
+                    <div class="task-meta">
+                        <span class="task-category">${cat}</span>
+                        <span class="task-assignee">${t.assignee}</span>
+                    </div>
+                </div>
+                <div class="task-actions">
+                    <button onclick="startEdit('${t.id}')" title="Editar">✏️</button>
+                    <button onclick="deleteTask('${t.id}')" title="Eliminar">🗑️</button>
+                </div>
+            </div>`;
+        }
+
         function addExpense() {
             const concept = document.getElementById('expConcept').value.trim();
             const amount = parseFloat(document.getElementById('expAmount').value);
             const person = document.getElementById('expPerson').value;
-
             if(!concept || isNaN(amount) || amount <= 0) return;
-
             expenses.push({ id: 'e_' + Date.now(), concept: concept, amount: amount, paidBy: person, date: new Date().toLocaleDateString() });
-
             document.getElementById('expConcept').value = '';
             document.getElementById('expAmount').value = '';
             saveData();
@@ -494,64 +391,42 @@
             const list = document.getElementById('expenses-list');
             list.innerHTML = expenses.map(e => `
                 <div class="expense-item">
-                    <div class="expense-info">
-                        <strong>${e.concept}</strong><small>${e.date} • Pagado por ${e.paidBy}</small>
-                    </div>
-                    <div class="expense-amount">
-                        $${e.amount.toFixed(2)}
-                        <button onclick="deleteExpense('${e.id}')" style="background:none;border:none;cursor:pointer;">🗑️</button>
-                    </div>
+                    <div><strong style="color:var(--text-main); font-weight:600; font-size:15px;">${e.concept}</strong><br><small style="color:var(--text-muted);">${e.date} • Pagado por ${e.paidBy}</small></div>
+                    <div style="font-weight:700; font-size:16px;">$${e.amount.toFixed(2)} <button onclick="deleteExpense('${e.id}')" style="background:none;border:none;cursor:pointer;margin-left:8px;">🗑️</button></div>
                 </div>
             `).join('');
-
-            if(expenses.length === 0) list.innerHTML = `<p style="color:#717171; font-size:14px;">No hay gastos registrados.</p>`;
+            if(expenses.length === 0) list.innerHTML = `<p style="color:var(--text-muted); font-size:15px; text-align:center; padding: 20px;">No hay gastos registrados aún.</p>`;
             calculateBalances();
         }
 
         function calculateBalances() {
             const balances = { 'Daniel': 0, 'Carlos': 0, 'Miguel': 0, 'Desiree': 0 };
-            
             expenses.forEach(exp => {
                 const split = exp.amount / 4; 
                 balances[exp.paidBy] += exp.amount;
                 for (let p in balances) balances[p] -= split;
             });
-
-            const grid = document.getElementById('balances-content');
-            grid.innerHTML = '';
-
-            for (let person in balances) {
+            document.getElementById('balances-content').innerHTML = Object.keys(balances).map(person => {
                 const bal = balances[person];
                 let status = 'neutral', text = '$0.00', label = 'Al día';
-
                 if (bal > 0.05) { status = 'positive'; text = `+$${bal.toFixed(2)}`; label = 'Le deben'; }
                 else if (bal < -0.05) { status = 'negative'; text = `-$${Math.abs(bal).toFixed(2)}`; label = 'Debe'; }
-
-                grid.innerHTML += `
-                    <div class="balance-card ${status}">
-                        <div style="font-size:14px; font-weight:600;">${person}</div>
-                        <div class="balance-amount">${text}</div>
-                        <div style="font-size:12px; margin-top:4px;">${label}</div>
-                    </div>
-                `;
-            }
+                return `<div class="balance-card ${status}"><div style="font-size:14px; font-weight:600; color:var(--text-main);">${person}</div><div class="balance-amount">${text}</div><div style="font-size:13px; font-weight:500; margin-top:4px;">${label}</div></div>`;
+            }).join('');
         }
 
         function exportItinerary() {
-            const btn = document.querySelector('.top-controls');
-            btn.style.display = 'none';
-            html2canvas(document.querySelector('.container'), { scale: 2, backgroundColor: "#F4F9F9" }).then(canvas => {
+            const controls = document.querySelector('.top-controls');
+            controls.style.display = 'none';
+            html2canvas(document.querySelector('.container'), { scale: 2, backgroundColor: "#F7F7F8" }).then(canvas => {
                 const link = document.createElement('a');
-                link.download = `Aruba_Itinerario_${new Date().getTime()}.png`;
+                link.download = `Aruba_Viaje_${new Date().getTime()}.png`;
                 link.href = canvas.toDataURL('image/png');
                 link.click();
-                btn.style.display = 'flex'; 
+                controls.style.display = 'flex'; 
             });
         }
 
-        /* =========================================================
-           4. SINCRONIZACIÓN CON GOOGLE SHEETS
-        ========================================================= */
         function saveData() {
             localStorage.setItem('aruba_tasks', JSON.stringify(tasks));
             localStorage.setItem('aruba_expenses', JSON.stringify(expenses));
@@ -562,40 +437,23 @@
 
         async function syncWithCloud(method = 'GET') {
             const statusIndicator = document.getElementById('sync-status');
-            
-            if (!GAS_WEB_APP_URL || GAS_WEB_APP_URL === "https://script.google.com/macros/s/AKfycbwGNmGtKkeep8XxpluuHjX3ZKj7dXUSxriMGg_gz7QWL8OwsBMDSSJrE_X33302K_A/exec") {
-                statusIndicator.innerHTML = '⚪ Modo Local';
-                return;
-            }
-
-            statusIndicator.innerHTML = '🟡 Guardando...';
-
+            if (!GAS_WEB_APP_URL) { statusIndicator.innerHTML = 'Offline'; return; }
+            statusIndicator.innerHTML = 'Sincronizando...';
             try {
                 if (method === 'POST') {
-                    // Usar mode: no-cors es vital para enviar JSON a GAS desde GitHub sin bloqueos del navegador
-                    await fetch(GAS_WEB_APP_URL, {
-                        method: 'POST',
-                        mode: 'no-cors',
-                        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-                        body: JSON.stringify({ tasks: tasks, expenses: expenses })
-                    });
-                    statusIndicator.innerHTML = '🟢 Sincronizado';
+                    await fetch(GAS_WEB_APP_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ tasks: tasks, expenses: expenses }) });
+                    statusIndicator.innerHTML = 'En línea';
                 } else if (method === 'GET') {
                     const response = await fetch(GAS_WEB_APP_URL);
                     const data = await response.json();
                     if(data.tasks && data.tasks.length > 0) tasks = data.tasks;
                     if(data.expenses && data.expenses.length > 0) expenses = data.expenses;
-                    
                     localStorage.setItem('aruba_tasks', JSON.stringify(tasks));
                     localStorage.setItem('aruba_expenses', JSON.stringify(expenses));
-                    renderTasks();
-                    renderExpenses();
-                    statusIndicator.innerHTML = '🟢 Sincronizado';
+                    renderTasks(); renderExpenses();
+                    statusIndicator.innerHTML = 'En línea';
                 }
-            } catch (error) {
-                statusIndicator.innerHTML = '🔴 Modo Offline';
-                console.error("Error conectando a Sheets:", error);
-            }
+            } catch (error) { statusIndicator.innerHTML = 'Offline'; }
         }
     </script>
 </body>
