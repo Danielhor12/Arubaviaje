@@ -4,93 +4,71 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aruba 2026 🇦🇼</title>
-    
-    <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
-
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
         :root {
-            --bg-color: #F7F7F8; --card-bg: #FFFFFF; --text-main: #111111; --text-muted: #666666;
-            --border: #E5E5E5; --primary: #00A896; --primary-hover: #028090; --accent: #FF7B54; 
-            --radius-lg: 20px; --radius-md: 12px; --shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+            --bg: #F4F5F7; --card: #FFFFFF; --text: #111827; --text-light: #6B7280;
+            --border: #E5E7EB; --primary: #00A896; --wa: #25D366; --danger: #EF4444;
+            --radius: 16px;
         }
 
-        body { font-family: 'Inter', sans-serif; background-color: var(--bg-color); color: var(--text-main); margin: 0; padding: 0; -webkit-font-smoothing: antialiased; }
+        body { font-family: 'Inter', sans-serif; background-color: var(--bg); color: var(--text); margin: 0; }
 
-        .hero { background: linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0.1)), url('https://images.unsplash.com/photo-1544281679-052a210740e5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80') center/cover; height: 260px; display: flex; align-items: flex-end; padding: 30px; color: white; position: relative; }
+        .hero {
+            background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0.2)), url('https://images.unsplash.com/photo-1544281679-052a210740e5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80') center/cover;
+            height: 220px; display: flex; align-items: flex-end; padding: 24px; color: white;
+        }
         .hero-content { max-width: 800px; margin: 0 auto; width: 100%; display: flex; justify-content: space-between; align-items: flex-end; }
-        .hero h1 { margin: 0 0 5px 0; font-size: 38px; font-weight: 700; letter-spacing: -1px; text-shadow: 0 2px 10px rgba(0,0,0,0.5);}
-        .hero p { margin: 0; font-size: 16px; opacity: 0.9; }
-        .sync-badge { background: rgba(255,255,255,0.2); padding: 6px 14px; border-radius: 99px; font-size: 13px; font-weight: 500; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.3); }
+        .hero h1 { margin: 0 0 4px 0; font-size: 32px; font-weight: 700; }
+        .sync-badge { background: rgba(255,255,255,0.2); padding: 4px 12px; border-radius: 20px; font-size: 12px; backdrop-filter: blur(5px); }
 
-        .container { max-width: 800px; margin: -30px auto 50px; padding: 0 20px; position: relative; z-index: 10; }
+        .container { max-width: 800px; margin: -20px auto 50px; padding: 0 16px; position: relative; z-index: 10; }
 
         /* Pestañas */
-        .tabs { display: flex; gap: 8px; margin-bottom: 24px; background: rgba(255,255,255,0.9); padding: 8px; border-radius: 99px; backdrop-filter: blur(10px); border: 1px solid var(--border); overflow-x: auto; scrollbar-width: none;}
+        .tabs { display: flex; gap: 8px; margin-bottom: 20px; background: rgba(255,255,255,0.9); padding: 6px; border-radius: 99px; overflow-x: auto; scrollbar-width: none;}
         .tabs::-webkit-scrollbar { display: none; }
-        .tab-btn { padding: 10px 20px; background: transparent; border: none; font-size: 14px; font-weight: 600; color: var(--text-muted); cursor: pointer; border-radius: 99px; transition: 0.2s; white-space: nowrap;}
-        .tab-btn.active { background: var(--text-main); color: #FFFFFF; }
+        .tab-btn { padding: 10px 16px; background: transparent; border: none; font-size: 14px; font-weight: 600; color: var(--text-light); cursor: pointer; border-radius: 99px; white-space: nowrap;}
+        .tab-btn.active { background: var(--text); color: white; }
 
-        .card { background: var(--card-bg); border-radius: var(--radius-lg); box-shadow: var(--shadow); padding: 32px; margin-bottom: 24px; border: 1px solid var(--border); }
+        .card { background: var(--card); border-radius: var(--radius); box-shadow: 0 4px 20px rgba(0,0,0,0.05); padding: 24px; margin-bottom: 20px; border: 1px solid var(--border); }
         .view-section { display: none; }
         .view-section.active { display: block; }
 
-        .day-nav { display: flex; gap: 8px; margin-bottom: 20px; overflow-x: auto; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
-        .day-nav::-webkit-scrollbar { height: 4px; }
-        .day-nav::-webkit-scrollbar-thumb { background: #DDD; border-radius: 10px; }
-        .day-btn { padding: 8px 16px; border: none; background: transparent; color: var(--text-muted); font-size: 15px; font-weight: 600; cursor: pointer; border-radius: 8px; white-space: nowrap;}
-        .day-btn.active { background: var(--bg-color); color: var(--text-main); }
-
-        .form-row { display: flex; gap: 10px; flex-wrap: wrap; background: var(--bg-color); padding: 15px; border-radius: var(--radius-md); margin-bottom: 25px; border: 1px solid var(--border);}
-        .form-row input, .form-row select { flex: 1; min-width: 140px; padding: 12px; border: 1px solid var(--border); border-radius: 8px; font-size: 14px; outline: none; font-family: 'Inter'; }
-        .form-row input:focus { border-color: var(--primary); }
-        .form-row button.btn-add { padding: 12px 24px; background: var(--primary); color: white; border: none; border-radius: 8px; font-size: 15px; font-weight: 600; cursor: pointer; white-space: nowrap;}
+        /* Formularios */
+        .form-row { display: flex; gap: 10px; flex-wrap: wrap; background: #F9FAFB; padding: 16px; border-radius: 12px; margin-bottom: 24px; border: 1px solid var(--border);}
+        .form-row input, .form-row select { flex: 1; min-width: 130px; padding: 12px; border: 1px solid var(--border); border-radius: 8px; font-size: 14px; font-family: 'Inter'; outline:none;}
+        .form-row input:focus, .form-row select:focus { border-color: var(--primary); }
+        .btn-add { padding: 12px 20px; background: var(--primary); color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; white-space: nowrap;}
         
-        .task-item { display: flex; flex-direction: column; padding: 16px; background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius-md); margin-bottom: 12px; transition: 0.2s; }
-        .task-main { display: flex; align-items: center; gap: 16px; width: 100%;}
-        .task-checkbox { width: 22px; height: 22px; cursor: pointer; accent-color: var(--primary); flex-shrink: 0; }
-        
-        .task-content { flex: 1; display: flex; flex-direction: column; gap: 4px; }
-        .task-text { font-size: 16px; font-weight: 600; color: var(--text-main); }
-        .task-meta { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
-        
-        .badge { font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 99px; background: var(--bg-color); color: var(--text-muted); border: 1px solid var(--border);}
-        .badge.highlight { background: #E9F7EF; color: #1D8348; border-color: #2ECC71;}
-        .badge.doc { background: #F5EEF8; color: #6C3483; border-color: #9B59B6;}
-        .badge.map { background: #EBF5FB; color: #21618C; border-color: #3498DB; cursor: pointer; text-decoration: none;}
+        /* Botones de Acción (WhatsApp y Docs) */
+        .btn-wa { background: var(--wa); color: white; border: none; padding: 8px 16px; border-radius: 8px; font-weight: 600; font-size: 13px; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; text-decoration: none;}
+        .btn-doc { background: #EEF2FF; color: #4F46E5; border: 1px solid #C7D2FE; padding: 8px 16px; border-radius: 8px; font-weight: 600; font-size: 13px; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; text-decoration: none;}
+        .btn-del { background: transparent; color: var(--text-light); border: none; font-size: 18px; cursor: pointer; padding: 4px;}
 
-        .task-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 12px; padding-top: 12px; border-top: 1px dashed var(--border); flex-wrap: wrap; gap: 10px;}
-        .task-evidence-link { color: var(--primary); font-size: 13px; font-weight: 600; text-decoration: none; display: flex; align-items: center; gap: 4px;}
-        .task-actions { display: flex; gap: 8px; flex-wrap: wrap;}
-        .action-btn { background: var(--bg-color); border: 1px solid var(--border); cursor: pointer; font-size: 13px; padding: 6px 12px; border-radius: 6px; color: var(--text-main); font-weight: 500; display:flex; align-items:center; gap:4px; text-decoration: none; transition: 0.2s;}
-        .action-btn.map-btn { color: #21618C; border-color: #3498DB; background: #EBF5FB; font-weight: 600;}
+        /* Itinerario (Horas) */
+        .day-nav { display: flex; gap: 8px; margin-bottom: 20px; overflow-x: auto; padding-bottom: 8px; }
+        .day-nav::-webkit-scrollbar { height: 0; }
+        .day-btn { padding: 8px 16px; border: none; background: transparent; color: var(--text-light); font-weight: 600; cursor: pointer; border-radius: 8px;}
+        .day-btn.active { background: #E5E7EB; color: var(--text); }
 
-        .task-item.completed { opacity: 0.6; background: #FAFAFA; }
-        .task-item.completed .task-text { text-decoration: line-through; }
+        .timeline-item { display: flex; gap: 16px; margin-bottom: 16px; align-items: flex-start; padding: 12px; border: 1px solid var(--border); border-radius: 12px;}
+        .time-badge { background: var(--text); color: white; padding: 6px 12px; border-radius: 6px; font-weight: 700; font-size: 14px; white-space: nowrap;}
+        .timeline-content { flex: 1; }
+        .timeline-title { font-weight: 600; font-size: 16px; margin-bottom: 4px; display: flex; align-items: center; justify-content: space-between;}
 
-        /* Estilos Gastos y Liquidación */
-        h3 { font-size: 20px; font-weight: 700; margin-top: 0; margin-bottom: 16px; }
-        .balance-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px; margin-bottom: 20px; }
-        .balance-card { padding: 15px; border-radius: var(--radius-md); border: 1px solid var(--border); text-align: center; background: var(--bg-color); }
-        .balance-card.positive { background: #F0FDF4; border-color: #BBF7D0; color: #166534; }
-        .balance-card.negative { background: #FEF2F2; border-color: #FECACA; color: #991B1B; }
-        .balance-amount { font-size: 20px; font-weight: 700; margin-top: 5px; }
+        /* Reservas */
+        .res-item { padding: 16px; border: 1px solid var(--border); border-radius: 12px; margin-bottom: 16px; }
+        .res-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;}
+        .badge { font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 99px; background: #F3F4F6; color: var(--text-light);}
+        .res-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 16px; padding-top: 16px; border-top: 1px dashed var(--border);}
 
-        .settlement-box { background: #111; color: white; padding: 20px; border-radius: var(--radius-md); margin-bottom: 30px; display: none;}
-        .settlement-box h4 { margin: 0 0 15px 0; color: #00A896;}
-        .settlement-item { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #333; font-size: 15px;}
-        .settlement-item:last-child { border-bottom: none; }
-        .btn-calc { width: 100%; padding: 12px; background: #111; color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; margin-bottom: 30px;}
+        /* Gastos y Súper */
+        .balance-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px; margin-bottom: 24px; }
+        .balance-card { padding: 16px; border-radius: 12px; border: 1px solid var(--border); text-align: center; }
+        .exp-item { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid var(--border); align-items: center; }
 
-        .expense-item { display: flex; justify-content: space-between; padding: 16px 0; border-bottom: 1px solid var(--border); align-items: center; }
-        
-        /* Vehículo y Supermercado */
-        .vehicle-log-item { display: flex; justify-content: space-between; padding: 12px; background: #f9fbfc; border-radius: 8px; border: 1px solid var(--border); margin-bottom: 10px;}
-        .super-item { display: flex; align-items: center; gap: 12px; padding: 12px; border-bottom: 1px solid var(--border);}
-        .super-item.completed { opacity: 0.5; text-decoration: line-through; }
-
-        @media (max-width: 600px) { .form-row input, .form-row select, .form-row button.btn-add { min-width: 100%; flex: none; } .card { padding: 20px; } }
+        @media (max-width: 600px) { .form-row input, .form-row select, .btn-add { min-width: 100%; flex: none; } }
     </style>
 </head>
 <body>
@@ -99,11 +77,9 @@
         <div class="hero-content">
             <div>
                 <h1>Aruba 2026</h1>
-                <p>Planificación y Control Compartido</p>
+                <p style="margin:0; opacity:0.9;">Planificación del Grupo</p>
             </div>
-            <div>
-                <span class="sync-badge" id="sync-status">🟡 Conectando...</span>
-            </div>
+            <span class="sync-badge" id="sync-status">🟡 Conectando...</span>
         </div>
     </div>
 
@@ -111,74 +87,68 @@
         
         <div class="tabs">
             <button class="tab-btn active" onclick="switchTab('itinerary', this)">📍 Itinerario</button>
-            <button class="tab-btn" onclick="switchTab('docs', this)">🚗 Auto & Docs</button>
+            <button class="tab-btn" onclick="switchTab('reservations', this)">🎫 Reservas & Docs</button>
             <button class="tab-btn" onclick="switchTab('super', this)">🛒 Súper</button>
             <button class="tab-btn" onclick="switchTab('expenses', this)">💸 Gastos</button>
         </div>
 
-        <!-- 1: ITINERARIO (Con Mapas) -->
+        <!-- 1: ITINERARIO (Con Horas) -->
         <div id="view-itinerary" class="view-section active card">
             <div class="day-nav" id="day-nav"></div>
+            
             <div class="form-row">
-                <input type="text" id="taskText" placeholder="¿Qué haremos?" autocomplete="off">
-                <select id="taskCategory">
-                    <option value="Tour / Actividad">🏖️ Tour / Actividad</option>
-                    <option value="Comida">🍽️ Comida</option>
-                    <option value="Vuelo / Transporte">✈️ Transporte</option>
-                </select>
-                <select id="taskPerson"></select>
-                <input type="url" id="taskMap" placeholder="Link de Google Maps (Opcional)">
-                <button class="btn-add" onclick="addTask()">Agregar Actividad</button>
+                <input type="time" id="itTime" required>
+                <input type="text" id="itText" placeholder="Actividad (Ej. Desayuno, Playa)">
+                <select id="itPerson"></select>
+                <button class="btn-add" onclick="addItinerary()">Añadir a la Agenda</button>
             </div>
-            <div id="itinerary-content"></div>
+            
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+                <h3 style="margin:0;">Agenda del Día</h3>
+                <button class="btn-wa" onclick="shareDayWhatsApp()">💬 Enviar Día al Grupo</button>
+            </div>
+            
+            <div id="it-content"></div>
         </div>
 
-        <!-- 2: AUTO Y LOGÍSTICA -->
-        <div id="view-docs" class="view-section card">
-            <h3>Tablero de Vehículo</h3>
-            <div class="form-row" style="margin-bottom: 20px;">
-                <select id="vehType" style="max-width:140px;">
-                    <option value="⛽ Combustible">Combustible</option>
-                    <option value="📸 Daño Previo">Daño Previo</option>
-                    <option value="🔑 Recojo/Entrega">Recojo/Entrega</option>
-                    <option value="📄 Seguro/Contrato">Contrato</option>
-                </select>
-                <input type="text" id="vehText" placeholder="Detalle (Ej. Tanque lleno $30)">
-                <input type="url" id="vehLink" placeholder="Link de Foto/Factura (Opc.)">
-                <button class="btn-add" onclick="addVehicleLog()">Añadir Registro</button>
-            </div>
-            <div id="vehicle-content" style="margin-bottom: 40px;"></div>
-
-            <h3 style="border-top: 1px solid #eee; padding-top: 20px;">Documentos del Viaje</h3>
+        <!-- 2: RESERVAS Y DOCS (Con Link obligatorio) -->
+        <div id="view-reservations" class="view-section card">
+            <h3 style="margin-top:0;">Archivos y Reservas</h3>
+            <p style="color:var(--text-light); font-size:14px; margin-top:-10px;">Guarda aquí los PDF de Tours, Restaurantes, Vuelos o Airbnb.</p>
+            
             <div class="form-row">
-                <input type="text" id="docText" placeholder="Nombre (Ej. Reserva Airbnb)">
-                <input type="url" id="docLink" placeholder="Link del Documento (Drive, PDF)">
-                <button class="btn-add" onclick="addDoc()">Guardar Doc</button>
+                <select id="resCategory">
+                    <option value="🍽️ Restaurante">🍽️ Restaurante</option>
+                    <option value="🏖️ Tour/Excursión">🏖️ Tour/Excursión</option>
+                    <option value="✈️ Vuelo">✈️ Vuelo</option>
+                    <option value="🏠 Hospedaje">🏠 Hospedaje</option>
+                    <option value="🚗 Auto">🚗 Auto</option>
+                </select>
+                <input type="text" id="resText" placeholder="Detalle (Ej. Cena en Zeerovers)">
+                <input type="url" id="resLink" placeholder="Pega el Link del PDF / Foto" style="min-width: 100%;">
+                <button class="btn-add" onclick="addReservation()" style="width: 100%;">Guardar Reserva</button>
             </div>
-            <div id="docs-content"></div>
+            
+            <div id="res-content"></div>
         </div>
 
         <!-- 3: SUPERMERCADO -->
         <div id="view-super" class="view-section card">
-            <h3>Lista de Compras (Airbnb)</h3>
+            <h3 style="margin-top:0;">Lista de Compras</h3>
             <div class="form-row">
-                <input type="text" id="supItem" placeholder="Ej. Agua 5L, Huevos, Café..." autocomplete="off">
-                <button class="btn-add" onclick="addSuperItem()">Agregar a lista</button>
+                <input type="text" id="supItem" placeholder="Ej. Agua, Cerveza, Huevos..." autocomplete="off">
+                <button class="btn-add" onclick="addSuper()">Agregar</button>
             </div>
             <div id="super-content"></div>
         </div>
 
-        <!-- 4: GASTOS Y LIQUIDACIÓN -->
+        <!-- 4: GASTOS -->
         <div id="view-expenses" class="view-section card">
-            <h3>Cuentas en USD</h3>
+            <h3 style="margin-top:0;">Cuentas Grupales (USD)</h3>
             <div class="balance-grid" id="balances-content"></div>
-            
-            <!-- Botón Liquidación -->
-            <button class="btn-calc" onclick="calculateSettlement()">💳 Calcular Liquidación Final (Quién paga a quién)</button>
-            <div class="settlement-box" id="settlement-box"></div>
 
             <h3 style="margin-top:20px;">Registrar Gasto</h3>
-            <div class="form-row" style="margin-bottom: 30px;">
+            <div class="form-row" style="margin-bottom: 24px;">
                 <input type="text" id="expConcept" placeholder="Concepto" autocomplete="off">
                 <input type="number" id="expAmount" placeholder="Monto" step="0.01">
                 <select id="expCurrency" style="max-width: 100px;">
@@ -195,26 +165,26 @@
     </div>
 
     <script>
-        // ⚠️ PEGA AQUÍ TU NUEVA URL DE APPS SCRIPT
+        // ⚠️ PEGA AQUÍ TU URL DE APPS SCRIPT
         const GAS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwGNmGtKkeep8XxpluuHjX3ZKj7dXUSxriMGg_gz7QWL8OwsBMDSSJrE_X33302K_A/exec"; 
         const TASA_FLORIN = 1.80;
 
         const days = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
         const people = ['Daniel', 'Carlos', 'Miguel', 'Desiree'];
         
-        let tasks = JSON.parse(localStorage.getItem('aru_t')) || [];
-        let expenses = JSON.parse(localStorage.getItem('aru_e')) || [];
-        let superm = JSON.parse(localStorage.getItem('aru_s')) || [];
-        let vehicles = JSON.parse(localStorage.getItem('aru_v')) || [];
+        let itinerary = JSON.parse(localStorage.getItem('ar26_it')) || [];
+        let reservations = JSON.parse(localStorage.getItem('ar26_res')) || [];
+        let supermarket = JSON.parse(localStorage.getItem('ar26_sup')) || [];
+        let expenses = JSON.parse(localStorage.getItem('ar26_exp')) || [];
         
         let currentDay = days[0];
 
         window.onload = () => {
             people.forEach(p => {
-                document.getElementById('taskPerson').add(new Option(p, p));
+                document.getElementById('itPerson').add(new Option(p, p));
                 document.getElementById('expPerson').add(new Option(p, p));
             });
-            renderDayNav(); renderTasks(); renderDocs(); renderSuper(); renderVehicle(); renderExpenses(); syncWithCloud('GET'); 
+            renderDayNav(); renderAll(); syncWithCloud('GET'); 
         };
 
         function switchTab(tab, btn) {
@@ -224,200 +194,153 @@
             btn.classList.add('active');
         }
 
-        // --- ITINERARIO ---
+        function renderAll() { renderItinerary(); renderReservations(); renderSuper(); renderExpenses(); }
+
+        // --- ITINERARIO (Por Horas) ---
         function renderDayNav() {
             document.getElementById('day-nav').innerHTML = days.map(d => `<button class="day-btn ${currentDay === d ? 'active' : ''}" onclick="setDay('${d}')">${d}</button>`).join('');
         }
-        function setDay(d) { currentDay = d; renderDayNav(); renderTasks(); }
+        function setDay(d) { currentDay = d; renderDayNav(); renderItinerary(); }
 
-        function addTask() {
-            const text = document.getElementById('taskText').value.trim();
-            if(!text) return;
-            tasks.push({
-                id: 't_' + Date.now(), text: text, day: currentDay, assignee: document.getElementById('taskPerson').value,
-                category: document.getElementById('taskCategory').value, evidence: '',
-                mapLink: document.getElementById('taskMap').value.trim(), completed: false
-            });
-            document.getElementById('taskText').value = ''; document.getElementById('taskMap').value = ''; saveData();
+        function addItinerary() {
+            const time = document.getElementById('itTime').value;
+            const text = document.getElementById('itText').value.trim();
+            if(!time || !text) return alert("Ingresa la hora y la actividad");
+            
+            itinerary.push({ id: 'i_' + Date.now(), day: currentDay, time: time, text: text, assignee: document.getElementById('itPerson').value, completed: false });
+            document.getElementById('itText').value = ''; saveData();
         }
 
-        function toggleTask(id) { const t = tasks.find(x => x.id === id); if(t) { t.completed = !t.completed; saveData(); } }
-        function deleteTask(id) { tasks = tasks.filter(t => t.id !== id); saveData(); }
+        function toggleIt(id) { const i = itinerary.find(x => x.id === id); if(i) { i.completed = !i.completed; saveData(); } }
+        function deleteIt(id) { itinerary = itinerary.filter(i => i.id !== id); saveData(); }
 
-        function renderTasks() {
-            const container = document.getElementById('itinerary-content');
-            let dayTasks = tasks.filter(t => t.day === currentDay && !t.category.includes('Documento'));
+        function formatTime(time24) {
+            let [h, m] = time24.split(':'); let ampm = h >= 12 ? 'PM' : 'AM';
+            h = h % 12 || 12; return `${h}:${m} ${ampm}`;
+        }
+
+        function renderItinerary() {
+            const container = document.getElementById('it-content');
+            let dayTasks = itinerary.filter(i => i.day === currentDay).sort((a,b) => a.time.localeCompare(b.time));
             
-            container.innerHTML = dayTasks.length === 0 ? `<p style="text-align:center; color:#666;">Día libre.</p>` : dayTasks.map(t => {
-                let mapHtml = t.mapLink ? `<a href="${t.mapLink}" target="_blank" class="action-btn map-btn">📍 Ruta</a>` : '';
-                return `
-                <div class="task-item ${t.completed ? 'completed' : ''}">
-                    <div class="task-main">
-                        <input type="checkbox" class="task-checkbox" ${t.completed ? 'checked' : ''} onchange="toggleTask('${t.id}')">
-                        <div class="task-content">
-                            <span class="task-text">${t.text}</span>
-                            <div class="task-meta"><span class="badge highlight">${t.category}</span><span class="badge">👤 ${t.assignee}</span></div>
+            container.innerHTML = dayTasks.length === 0 ? `<p style="text-align:center; color:var(--text-light);">No hay agenda para el ${currentDay}.</p>` : dayTasks.map(t => `
+                <div class="timeline-item" style="${t.completed ? 'opacity:0.5;' : ''}">
+                    <div class="time-badge">${formatTime(t.time)}</div>
+                    <div class="timeline-content">
+                        <div class="timeline-title">
+                            <span style="${t.completed ? 'text-decoration:line-through;' : ''}">${t.text}</span>
+                            <button class="btn-del" onclick="deleteIt('${t.id}')">🗑️</button>
+                        </div>
+                        <div style="font-size:13px; color:var(--text-light); margin-top:4px;">
+                            <input type="checkbox" ${t.completed ? 'checked' : ''} onchange="toggleIt('${t.id}')"> Marcar como hecho • 👤 ${t.assignee}
                         </div>
                     </div>
-                    <div class="task-footer">
-                        <div class="task-actions">${mapHtml}<button class="action-btn" onclick="deleteTask('${t.id}')">🗑️ Borrar</button></div>
-                    </div>
-                </div>`;
-            }).join('');
+                </div>`).join('');
         }
 
-        // --- AUTO Y DOCUMENTOS ---
-        function addVehicleLog() {
-            const text = document.getElementById('vehText').value.trim();
-            if(!text) return;
-            vehicles.push({
-                id: 'v_' + Date.now(), type: document.getElementById('vehType').value, text: text,
-                author: 'Usuario', date: new Date().toLocaleDateString(), link: document.getElementById('vehLink').value.trim()
-            });
-            document.getElementById('vehText').value = ''; document.getElementById('vehLink').value = ''; saveData();
+        function shareDayWhatsApp() {
+            let dayTasks = itinerary.filter(i => i.day === currentDay).sort((a,b) => a.time.localeCompare(b.time));
+            if(dayTasks.length === 0) return alert("No hay actividades para enviar.");
+            let msg = `*🗓️ Agenda Aruba - ${currentDay}*\n\n`;
+            dayTasks.forEach(t => { msg += `⏰ ${formatTime(t.time)} - ${t.text}\n`; });
+            window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(msg)}`, '_blank');
         }
-        function deleteVehicleLog(id) { vehicles = vehicles.filter(v => v.id !== id); saveData(); }
-        
-        function renderVehicle() {
-            const container = document.getElementById('vehicle-content');
-            container.innerHTML = vehicles.length === 0 ? `<p style="color:#666;font-size:14px;">No hay registros del auto.</p>` : vehicles.map(v => `
-                <div class="vehicle-log-item">
-                    <div><strong style="font-size:14px;">${v.type}</strong><br><span style="font-size:14px;">${v.text}</span><br><small style="color:#666;">${v.date}</small></div>
-                    <div style="text-align:right;">
-                        ${v.link ? `<a href="${v.link}" target="_blank" style="font-size:13px; color:#00A896;">Ver Foto/Doc</a><br>` : ''}
-                        <button onclick="deleteVehicleLog('${v.id}')" style="background:none;border:none;cursor:pointer;margin-top:5px;">🗑️</button>
+
+        // --- RESERVAS Y DOCS ---
+        function addReservation() {
+            const text = document.getElementById('resText').value.trim();
+            const link = document.getElementById('resLink').value.trim();
+            if(!text || !link) return alert("Ingresa el detalle de la reserva y el link del PDF o foto.");
+            
+            reservations.push({ id: 'r_' + Date.now(), category: document.getElementById('resCategory').value, text: text, evidenceLink: link });
+            document.getElementById('resText').value = ''; document.getElementById('resLink').value = ''; saveData();
+        }
+        function deleteRes(id) { reservations = reservations.filter(r => r.id !== id); saveData(); }
+
+        function shareResWhatsApp(cat, text, link) {
+            let msg = `*Nueva Reserva Aruba 🇦🇼*\n${cat}: ${text}\n📄 Ver archivo: ${link}`;
+            window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(msg)}`, '_blank');
+        }
+
+        function renderReservations() {
+            const container = document.getElementById('res-content');
+            container.innerHTML = reservations.length === 0 ? `<p style="text-align:center; color:var(--text-light);">Sin reservas guardadas.</p>` : reservations.map(r => `
+                <div class="res-item">
+                    <div class="res-header"><span class="badge">${r.category}</span><button class="btn-del" onclick="deleteRes('${r.id}')">🗑️</button></div>
+                    <div style="font-weight:600; font-size:16px;">${r.text}</div>
+                    <div class="res-actions">
+                        <a href="${r.evidenceLink}" target="_blank" class="btn-doc">📄 Abrir PDF / Foto</a>
+                        <button class="btn-wa" onclick="shareResWhatsApp('${r.category}', '${r.text}', '${r.evidenceLink}')">💬 Notificar al Grupo</button>
                     </div>
                 </div>`).join('');
         }
 
-        function addDoc() {
-            const text = document.getElementById('docText').value.trim();
-            const link = document.getElementById('docLink').value.trim();
-            if(!text || !link) return;
-            tasks.push({ id: 't_' + Date.now(), text: text, day: 'Todas', assignee: 'Grupo', category: 'Documento', evidence: link, mapLink: '', completed: false });
-            document.getElementById('docText').value = ''; document.getElementById('docLink').value = ''; saveData();
-        }
-
-        function renderDocs() {
-            const container = document.getElementById('docs-content');
-            let docs = tasks.filter(t => t.category === 'Documento' || t.evidence !== '');
-            container.innerHTML = docs.length === 0 ? `<p style="color:#666;font-size:14px;">Sin documentos.</p>` : docs.map(t => `
-                <div class="task-item">
-                    <div class="task-content">
-                        <span class="task-text">${t.text}</span>
-                        <a href="${t.evidence}" target="_blank" class="task-evidence-link" style="margin-top:5px;">📄 Ver Documento</a>
-                    </div>
-                    <button onclick="deleteTask('${t.id}')" style="background:none;border:none;cursor:pointer;">🗑️</button>
-                </div>`).join('');
-        }
-
-        // --- SUPERMERCADO ---
-        function addSuperItem() {
+        // --- SUPER Y GASTOS MANTIENEN LÓGICA PREVIA ---
+        function addSuper() {
             const text = document.getElementById('supItem').value.trim();
             if(!text) return;
-            superm.push({ id: 's_' + Date.now(), item: text, addedBy: 'Usuario', completed: false });
+            supermarket.push({ id: 's_' + Date.now(), item: text, completed: false });
             document.getElementById('supItem').value = ''; saveData();
         }
-        function toggleSuper(id) { const s = superm.find(x => x.id === id); if(s) { s.completed = !s.completed; saveData(); } }
-        function deleteSuper(id) { superm = superm.filter(s => s.id !== id); saveData(); }
+        function toggleSup(id) { const s = supermarket.find(x => x.id === id); if(s) { s.completed = !s.completed; saveData(); } }
+        function deleteSup(id) { supermarket = supermarket.filter(s => s.id !== id); saveData(); }
         
         function renderSuper() {
             const container = document.getElementById('super-content');
-            container.innerHTML = superm.length === 0 ? `<p style="color:#666; text-align:center;">Lista vacía.</p>` : superm.map(s => `
-                <div class="super-item ${s.completed ? 'completed' : ''}">
-                    <input type="checkbox" class="task-checkbox" ${s.completed ? 'checked' : ''} onchange="toggleSuper('${s.id}')">
-                    <span style="flex:1; font-weight:500;">${s.item}</span>
-                    <button onclick="deleteSuper('${s.id}')" style="background:none;border:none;cursor:pointer;">🗑️</button>
+            container.innerHTML = supermarket.length === 0 ? '' : supermarket.map(s => `
+                <div style="display:flex; align-items:center; padding:12px 0; border-bottom:1px solid #eee; ${s.completed?'opacity:0.5; text-decoration:line-through;':''}">
+                    <input type="checkbox" style="margin-right:12px; width:20px;height:20px;" ${s.completed ? 'checked' : ''} onchange="toggleSup('${s.id}')">
+                    <span style="flex:1;">${s.item}</span>
+                    <button class="btn-del" onclick="deleteSup('${s.id}')">🗑️</button>
                 </div>`).join('');
         }
 
-        // --- GASTOS Y ALGORITMO DE LIQUIDACIÓN ---
         function addExpense() {
             const concept = document.getElementById('expConcept').value.trim();
-            const originalAmount = parseFloat(document.getElementById('expAmount').value);
-            const currency = document.getElementById('expCurrency').value;
-            if(!concept || isNaN(originalAmount) || originalAmount <= 0) return;
-
-            expenses.push({ 
-                id: 'e_' + Date.now(), concept: concept, originalAmount: originalAmount, currency: currency,
-                amountUsd: currency === 'AWG' ? (originalAmount / TASA_FLORIN) : originalAmount,
-                paidBy: document.getElementById('expPerson').value, date: new Date().toLocaleDateString() 
-            });
+            const amt = parseFloat(document.getElementById('expAmount').value);
+            const cur = document.getElementById('expCurrency').value;
+            if(!concept || isNaN(amt)) return;
+            expenses.push({ id: 'e_' + Date.now(), concept: concept, originalAmount: amt, currency: cur, amountUsd: cur === 'AWG' ? (amt / TASA_FLORIN) : amt, paidBy: document.getElementById('expPerson').value, date: new Date().toLocaleDateString() });
             document.getElementById('expConcept').value = ''; document.getElementById('expAmount').value = ''; saveData();
         }
-        function deleteExpense(id) { expenses = expenses.filter(e => e.id !== id); saveData(); }
+        function deleteExp(id) { expenses = expenses.filter(e => e.id !== id); saveData(); }
 
-        let balancesCalc = {};
         function renderExpenses() {
             const list = document.getElementById('expenses-list');
             list.innerHTML = expenses.map(e => `
-                <div class="expense-item">
+                <div class="exp-item">
                     <div><strong>${e.concept}</strong><br><small>${e.date} • Pagó ${e.paidBy}</small></div>
-                    <div style="font-weight:700;">${e.currency==='AWG'?`<span style="font-size:12px;color:#888;">(${e.originalAmount} AWG)</span>`:''} $${(e.amountUsd||e.amount).toFixed(2)} <button onclick="deleteExpense('${e.id}')" style="background:none;border:none;cursor:pointer;">🗑️</button></div>
+                    <div style="font-weight:700;">${e.currency==='AWG'?`<small style="color:#888;">(${e.originalAmount} AWG)</small>`:''} $${e.amountUsd.toFixed(2)} <button class="btn-del" onclick="deleteExp('${e.id}')">🗑️</button></div>
                 </div>`).join('');
             
-            balancesCalc = { 'Daniel': 0, 'Carlos': 0, 'Miguel': 0, 'Desiree': 0 };
-            expenses.forEach(exp => {
-                const usd = exp.amountUsd || exp.amount; const split = usd / 4; 
-                balancesCalc[exp.paidBy] += usd;
-                for (let p in balancesCalc) balancesCalc[p] -= split;
-            });
-            
-            document.getElementById('balances-content').innerHTML = Object.keys(balancesCalc).map(person => {
-                const bal = balancesCalc[person];
-                let status = 'neutral', text = '$0.00', label = 'Al día';
-                if (bal > 0.01) { status = 'positive'; text = `+$${bal.toFixed(2)}`; label = 'Le deben'; }
-                else if (bal < -0.01) { status = 'negative'; text = `-$${Math.abs(bal).toFixed(2)}`; label = 'Debe'; }
-                return `<div class="balance-card ${status}"><div>${person}</div><div class="balance-amount">${text}</div><div style="font-size:12px;margin-top:4px;">${label}</div></div>`;
-            }).join('');
-        }
-
-        function calculateSettlement() {
-            const box = document.getElementById('settlement-box');
-            let debtors = [], creditors = [];
-            for (let p in balancesCalc) {
-                if (balancesCalc[p] < -0.01) debtors.push({person: p, amount: Math.abs(balancesCalc[p])});
-                else if (balancesCalc[p] > 0.01) creditors.push({person: p, amount: balancesCalc[p]});
-            }
-            
-            let html = `<h4>💸 Resumen de Transferencias</h4>`;
-            if (debtors.length === 0) {
-                html += `<p>¡Cuentas exactas! Nadie debe nada.</p>`;
-            } else {
-                let i = 0, j = 0;
-                while(i < debtors.length && j < creditors.length) {
-                    let d = debtors[i], c = creditors[j];
-                    let amt = Math.min(d.amount, c.amount);
-                    html += `<div class="settlement-item"><span>🔴 <strong>${d.person}</strong> transfiere a 🟢 <strong>${c.person}</strong></span> <strong>$${amt.toFixed(2)}</strong></div>`;
-                    d.amount -= amt; c.amount -= amt;
-                    if (d.amount < 0.01) i++;
-                    if (c.amount < 0.01) j++;
-                }
-            }
-            box.innerHTML = html; box.style.display = 'block';
+            let b = { 'Daniel': 0, 'Carlos': 0, 'Miguel': 0, 'Desiree': 0 };
+            expenses.forEach(e => { b[e.paidBy] += e.amountUsd; for (let p in b) b[p] -= (e.amountUsd / 4); });
+            document.getElementById('balances-content').innerHTML = Object.keys(b).map(p => `
+                <div class="balance-card ${b[p] > 0.01 ? 'positive' : b[p] < -0.01 ? 'negative' : ''}">
+                    <div>${p}</div><div style="font-size:20px; font-weight:700; margin-top:4px;">${b[p] > 0.01 ? '+' : ''}$${b[p].toFixed(2)}</div>
+                </div>`).join('');
         }
 
         // --- SINCRONIZACIÓN ---
         function saveData() {
-            localStorage.setItem('aru_t', JSON.stringify(tasks)); localStorage.setItem('aru_e', JSON.stringify(expenses));
-            localStorage.setItem('aru_s', JSON.stringify(superm)); localStorage.setItem('aru_v', JSON.stringify(vehicles));
-            renderTasks(); renderDocs(); renderSuper(); renderVehicle(); renderExpenses(); document.getElementById('settlement-box').style.display = 'none';
-            syncWithCloud('POST');
+            localStorage.setItem('ar26_it', JSON.stringify(itinerary)); localStorage.setItem('ar26_res', JSON.stringify(reservations));
+            localStorage.setItem('ar26_sup', JSON.stringify(supermarket)); localStorage.setItem('ar26_exp', JSON.stringify(expenses));
+            renderAll(); syncWithCloud('POST');
         }
 
         async function syncWithCloud(method = 'GET') {
             const status = document.getElementById('sync-status');
-            if (!GAS_WEB_APP_URL) { status.innerHTML = '🔴 Modo Local'; return; }
+            if (!GAS_WEB_APP_URL) { status.innerHTML = '🔴 Local'; return; }
             status.innerHTML = '🟡 Guardando...';
             try {
                 if (method === 'POST') {
-                    await fetch(GAS_WEB_APP_URL, { method: 'POST', mode: 'no-cors', headers: {'Content-Type':'text/plain'}, body: JSON.stringify({ tasks, expenses, supermarket: superm, vehicle: vehicles }) });
-                    status.innerHTML = '🟢 En línea';
+                    await fetch(GAS_WEB_APP_URL, { method: 'POST', mode: 'no-cors', headers: {'Content-Type':'text/plain'}, body: JSON.stringify({ itinerary, reservations, supermarket, expenses }) });
+                    status.innerHTML = '🟢 Sincronizado';
                 } else {
                     const res = await fetch(GAS_WEB_APP_URL); const data = await res.json();
-                    if(data.tasks) tasks = data.tasks; if(data.expenses) expenses = data.expenses;
-                    if(data.supermarket) superm = data.supermarket; if(data.vehicle) vehicles = data.vehicle;
-                    saveData(); status.innerHTML = '🟢 En línea';
+                    if(data.itinerary) itinerary = data.itinerary; if(data.reservations) reservations = data.reservations;
+                    if(data.supermarket) supermarket = data.supermarket; if(data.expenses) expenses = data.expenses;
+                    saveData(); status.innerHTML = '🟢 Sincronizado';
                 }
             } catch (e) { status.innerHTML = '🔴 Sin red'; }
         }
