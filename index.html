@@ -21,7 +21,11 @@
         }
         .hero-content { max-width: 800px; margin: 0 auto; width: 100%; display: flex; justify-content: space-between; align-items: flex-end; }
         .hero h1 { margin: 0 0 4px 0; font-size: 32px; font-weight: 700; }
+        
+        .top-controls { display: flex; flex-direction: column; align-items: flex-end; gap: 10px; }
         .sync-badge { background: rgba(255,255,255,0.2); padding: 4px 12px; border-radius: 20px; font-size: 12px; backdrop-filter: blur(5px); }
+        .btn-gallery { background: rgba(255, 255, 255, 0.95); color: var(--primary); padding: 8px 16px; border-radius: 99px; font-weight: 700; font-size: 13px; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; transition: 0.2s; box-shadow: 0 4px 12px rgba(0,0,0,0.15); border: none;}
+        .btn-gallery:hover { background: #FFFFFF; transform: scale(1.02); }
 
         .container { max-width: 800px; margin: -20px auto 50px; padding: 0 16px; position: relative; z-index: 10; }
 
@@ -41,12 +45,11 @@
         .form-row input:focus, .form-row select:focus { border-color: var(--primary); }
         .btn-add { padding: 12px 20px; background: var(--primary); color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; white-space: nowrap;}
         
-        /* Botones de Acción (WhatsApp y Docs) */
         .btn-wa { background: var(--wa); color: white; border: none; padding: 8px 16px; border-radius: 8px; font-weight: 600; font-size: 13px; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; text-decoration: none;}
         .btn-doc { background: #EEF2FF; color: #4F46E5; border: 1px solid #C7D2FE; padding: 8px 16px; border-radius: 8px; font-weight: 600; font-size: 13px; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; text-decoration: none;}
         .btn-del { background: transparent; color: var(--text-light); border: none; font-size: 18px; cursor: pointer; padding: 4px;}
 
-        /* Itinerario (Horas) */
+        /* Itinerario */
         .day-nav { display: flex; gap: 8px; margin-bottom: 20px; overflow-x: auto; padding-bottom: 8px; }
         .day-nav::-webkit-scrollbar { height: 0; }
         .day-btn { padding: 8px 16px; border: none; background: transparent; color: var(--text-light); font-weight: 600; cursor: pointer; border-radius: 8px;}
@@ -63,7 +66,13 @@
         .badge { font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 99px; background: #F3F4F6; color: var(--text-light);}
         .res-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 16px; padding-top: 16px; border-top: 1px dashed var(--border);}
 
-        /* Gastos y Súper */
+        /* Listas Simples (Súper y Equipaje) */
+        .list-item { display: flex; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--border); gap: 12px;}
+        .list-item.completed { opacity: 0.5; }
+        .list-item.completed .item-text { text-decoration: line-through; }
+        .pack-cat { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--primary); margin-top: 20px; border-bottom: 2px solid var(--border); padding-bottom: 6px; margin-bottom: 10px;}
+
+        /* Gastos */
         .balance-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px; margin-bottom: 24px; }
         .balance-card { padding: 16px; border-radius: 12px; border: 1px solid var(--border); text-align: center; }
         .exp-item { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid var(--border); align-items: center; }
@@ -79,7 +88,15 @@
                 <h1>Aruba 2026</h1>
                 <p style="margin:0; opacity:0.9;">Planificación del Grupo</p>
             </div>
-            <span class="sync-badge" id="sync-status">🟡 Conectando...</span>
+            <div class="top-controls">
+                <span class="sync-badge" id="sync-status">🟡 Conectando...</span>
+                
+                <!-- 📸 AQUÍ PEGAS TU ENLACE DE GOOGLE PHOTOS O ICLOUD -->
+                <a href="https://photos.icloud.com/shared/album/0deSvo6uClUhiEALFH7Z5NycA" target="_blank" class="btn-gallery">
+                    📸 Galería Compartida
+                </a>
+                
+            </div>
         </div>
     </div>
 
@@ -88,34 +105,30 @@
         <div class="tabs">
             <button class="tab-btn active" onclick="switchTab('itinerary', this)">📍 Itinerario</button>
             <button class="tab-btn" onclick="switchTab('reservations', this)">🎫 Reservas & Docs</button>
+            <button class="tab-btn" onclick="switchTab('packing', this)">🎒 Equipaje</button>
             <button class="tab-btn" onclick="switchTab('super', this)">🛒 Súper</button>
             <button class="tab-btn" onclick="switchTab('expenses', this)">💸 Gastos</button>
         </div>
 
-        <!-- 1: ITINERARIO (Con Horas) -->
+        <!-- 1: ITINERARIO -->
         <div id="view-itinerary" class="view-section active card">
             <div class="day-nav" id="day-nav"></div>
-            
             <div class="form-row">
                 <input type="time" id="itTime" required>
                 <input type="text" id="itText" placeholder="Actividad (Ej. Desayuno, Playa)">
                 <select id="itPerson"></select>
                 <button class="btn-add" onclick="addItinerary()">Añadir a la Agenda</button>
             </div>
-            
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
                 <h3 style="margin:0;">Agenda del Día</h3>
                 <button class="btn-wa" onclick="shareDayWhatsApp()">💬 Enviar Día al Grupo</button>
             </div>
-            
             <div id="it-content"></div>
         </div>
 
-        <!-- 2: RESERVAS Y DOCS (Con Link obligatorio) -->
+        <!-- 2: RESERVAS -->
         <div id="view-reservations" class="view-section card">
             <h3 style="margin-top:0;">Archivos y Reservas</h3>
-            <p style="color:var(--text-light); font-size:14px; margin-top:-10px;">Guarda aquí los PDF de Tours, Restaurantes, Vuelos o Airbnb.</p>
-            
             <div class="form-row">
                 <select id="resCategory">
                     <option value="🍽️ Restaurante">🍽️ Restaurante</option>
@@ -124,15 +137,34 @@
                     <option value="🏠 Hospedaje">🏠 Hospedaje</option>
                     <option value="🚗 Auto">🚗 Auto</option>
                 </select>
-                <input type="text" id="resText" placeholder="Detalle (Ej. Cena en Zeerovers)">
-                <input type="url" id="resLink" placeholder="Pega el Link del PDF / Foto" style="min-width: 100%;">
+                <input type="text" id="resText" placeholder="Detalle (Ej. Cena Zeerovers)">
+                <input type="url" id="resLink" placeholder="Link del PDF / Foto" style="min-width: 100%;">
                 <button class="btn-add" onclick="addReservation()" style="width: 100%;">Guardar Reserva</button>
             </div>
-            
             <div id="res-content"></div>
         </div>
 
-        <!-- 3: SUPERMERCADO -->
+        <!-- 3: EQUIPAJE -->
+        <div id="view-packing" class="view-section card">
+            <h3 style="margin-top:0;">Equipaje y Documentos</h3>
+            <p style="color:var(--text-light); font-size:14px; margin-top:-10px;">Anota aquí lo indispensable. Si alguien ya va a llevar algo compartido (ej. parlante), que se lo asigne para no duplicar.</p>
+            <div class="form-row">
+                <input type="text" id="packItem" placeholder="Ej. Bloqueador Reef-Safe, Pasaporte...">
+                <select id="packCategory">
+                    <option value="Logística Compartida">Logística Compartida</option>
+                    <option value="Documentos Críticos">Documentos Críticos</option>
+                    <option value="Cuidado Personal">Cuidado Personal</option>
+                </select>
+                <select id="packPerson">
+                    <option value="Sin asignar">Sin asignar (Alguien tómelo)</option>
+                    <option value="Todos">Todos deben llevarlo</option>
+                </select>
+                <button class="btn-add" onclick="addPackItem()">Agregar</button>
+            </div>
+            <div id="pack-content"></div>
+        </div>
+
+        <!-- 4: SUPERMERCADO -->
         <div id="view-super" class="view-section card">
             <h3 style="margin-top:0;">Lista de Compras</h3>
             <div class="form-row">
@@ -142,11 +174,10 @@
             <div id="super-content"></div>
         </div>
 
-        <!-- 4: GASTOS -->
+        <!-- 5: GASTOS -->
         <div id="view-expenses" class="view-section card">
             <h3 style="margin-top:0;">Cuentas Grupales (USD)</h3>
             <div class="balance-grid" id="balances-content"></div>
-
             <h3 style="margin-top:20px;">Registrar Gasto</h3>
             <div class="form-row" style="margin-bottom: 24px;">
                 <input type="text" id="expConcept" placeholder="Concepto" autocomplete="off">
@@ -165,7 +196,7 @@
     </div>
 
     <script>
-        // ⚠️ PEGA AQUÍ TU URL DE APPS SCRIPT
+        // ⚠️ PEGA AQUÍ TU URL DE GOOGLE APPS SCRIPT
         const GAS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwGNmGtKkeep8XxpluuHjX3ZKj7dXUSxriMGg_gz7QWL8OwsBMDSSJrE_X33302K_A/exec"; 
         const TASA_FLORIN = 1.80;
 
@@ -176,6 +207,7 @@
         let reservations = JSON.parse(localStorage.getItem('ar26_res')) || [];
         let supermarket = JSON.parse(localStorage.getItem('ar26_sup')) || [];
         let expenses = JSON.parse(localStorage.getItem('ar26_exp')) || [];
+        let packing = JSON.parse(localStorage.getItem('ar26_pack')) || [];
         
         let currentDay = days[0];
 
@@ -183,6 +215,7 @@
             people.forEach(p => {
                 document.getElementById('itPerson').add(new Option(p, p));
                 document.getElementById('expPerson').add(new Option(p, p));
+                document.getElementById('packPerson').add(new Option(p, p));
             });
             renderDayNav(); renderAll(); syncWithCloud('GET'); 
         };
@@ -194,120 +227,114 @@
             btn.classList.add('active');
         }
 
-        function renderAll() { renderItinerary(); renderReservations(); renderSuper(); renderExpenses(); }
+        function renderAll() { renderItinerary(); renderReservations(); renderPacking(); renderSuper(); renderExpenses(); }
 
-        // --- ITINERARIO (Por Horas) ---
-        function renderDayNav() {
-            document.getElementById('day-nav').innerHTML = days.map(d => `<button class="day-btn ${currentDay === d ? 'active' : ''}" onclick="setDay('${d}')">${d}</button>`).join('');
-        }
+        // --- ITINERARIO ---
+        function renderDayNav() { document.getElementById('day-nav').innerHTML = days.map(d => `<button class="day-btn ${currentDay === d ? 'active' : ''}" onclick="setDay('${d}')">${d}</button>`).join(''); }
         function setDay(d) { currentDay = d; renderDayNav(); renderItinerary(); }
-
         function addItinerary() {
-            const time = document.getElementById('itTime').value;
-            const text = document.getElementById('itText').value.trim();
+            const time = document.getElementById('itTime').value; const text = document.getElementById('itText').value.trim();
             if(!time || !text) return alert("Ingresa la hora y la actividad");
-            
             itinerary.push({ id: 'i_' + Date.now(), day: currentDay, time: time, text: text, assignee: document.getElementById('itPerson').value, completed: false });
             document.getElementById('itText').value = ''; saveData();
         }
-
         function toggleIt(id) { const i = itinerary.find(x => x.id === id); if(i) { i.completed = !i.completed; saveData(); } }
         function deleteIt(id) { itinerary = itinerary.filter(i => i.id !== id); saveData(); }
-
-        function formatTime(time24) {
-            let [h, m] = time24.split(':'); let ampm = h >= 12 ? 'PM' : 'AM';
-            h = h % 12 || 12; return `${h}:${m} ${ampm}`;
-        }
+        function formatTime(time24) { let [h, m] = time24.split(':'); let ampm = h >= 12 ? 'PM' : 'AM'; h = h % 12 || 12; return `${h}:${m} ${ampm}`; }
 
         function renderItinerary() {
             const container = document.getElementById('it-content');
             let dayTasks = itinerary.filter(i => i.day === currentDay).sort((a,b) => a.time.localeCompare(b.time));
-            
             container.innerHTML = dayTasks.length === 0 ? `<p style="text-align:center; color:var(--text-light);">No hay agenda para el ${currentDay}.</p>` : dayTasks.map(t => `
                 <div class="timeline-item" style="${t.completed ? 'opacity:0.5;' : ''}">
                     <div class="time-badge">${formatTime(t.time)}</div>
                     <div class="timeline-content">
-                        <div class="timeline-title">
-                            <span style="${t.completed ? 'text-decoration:line-through;' : ''}">${t.text}</span>
-                            <button class="btn-del" onclick="deleteIt('${t.id}')">🗑️</button>
-                        </div>
-                        <div style="font-size:13px; color:var(--text-light); margin-top:4px;">
-                            <input type="checkbox" ${t.completed ? 'checked' : ''} onchange="toggleIt('${t.id}')"> Marcar como hecho • 👤 ${t.assignee}
-                        </div>
+                        <div class="timeline-title"><span style="${t.completed ? 'text-decoration:line-through;' : ''}">${t.text}</span><button class="btn-del" onclick="deleteIt('${t.id}')">🗑️</button></div>
+                        <div style="font-size:13px; color:var(--text-light); margin-top:4px;"><input type="checkbox" ${t.completed ? 'checked' : ''} onchange="toggleIt('${t.id}')"> Hecho • 👤 ${t.assignee}</div>
                     </div>
                 </div>`).join('');
         }
-
         function shareDayWhatsApp() {
             let dayTasks = itinerary.filter(i => i.day === currentDay).sort((a,b) => a.time.localeCompare(b.time));
             if(dayTasks.length === 0) return alert("No hay actividades para enviar.");
-            let msg = `*🗓️ Agenda Aruba - ${currentDay}*\n\n`;
-            dayTasks.forEach(t => { msg += `⏰ ${formatTime(t.time)} - ${t.text}\n`; });
+            let msg = `*🗓️ Agenda Aruba - ${currentDay}*\n\n`; dayTasks.forEach(t => { msg += `⏰ ${formatTime(t.time)} - ${t.text}\n`; });
             window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(msg)}`, '_blank');
         }
 
-        // --- RESERVAS Y DOCS ---
+        // --- RESERVAS ---
         function addReservation() {
-            const text = document.getElementById('resText').value.trim();
-            const link = document.getElementById('resLink').value.trim();
-            if(!text || !link) return alert("Ingresa el detalle de la reserva y el link del PDF o foto.");
-            
+            const text = document.getElementById('resText').value.trim(); const link = document.getElementById('resLink').value.trim();
+            if(!text || !link) return alert("Ingresa el detalle y el link del PDF o foto.");
             reservations.push({ id: 'r_' + Date.now(), category: document.getElementById('resCategory').value, text: text, evidenceLink: link });
             document.getElementById('resText').value = ''; document.getElementById('resLink').value = ''; saveData();
         }
         function deleteRes(id) { reservations = reservations.filter(r => r.id !== id); saveData(); }
-
-        function shareResWhatsApp(cat, text, link) {
-            let msg = `*Nueva Reserva Aruba 🇦🇼*\n${cat}: ${text}\n📄 Ver archivo: ${link}`;
-            window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(msg)}`, '_blank');
-        }
+        function shareResWhatsApp(cat, text, link) { window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(`*Nueva Reserva Aruba 🇦🇼*\n${cat}:${text}\n📄 Ver archivo: ${link}`)}`, '_blank'); }
 
         function renderReservations() {
-            const container = document.getElementById('res-content');
-            container.innerHTML = reservations.length === 0 ? `<p style="text-align:center; color:var(--text-light);">Sin reservas guardadas.</p>` : reservations.map(r => `
+            document.getElementById('res-content').innerHTML = reservations.length === 0 ? `<p style="text-align:center; color:var(--text-light);">Sin reservas guardadas.</p>` : reservations.map(r => `
                 <div class="res-item">
                     <div class="res-header"><span class="badge">${r.category}</span><button class="btn-del" onclick="deleteRes('${r.id}')">🗑️</button></div>
                     <div style="font-weight:600; font-size:16px;">${r.text}</div>
-                    <div class="res-actions">
-                        <a href="${r.evidenceLink}" target="_blank" class="btn-doc">📄 Abrir PDF / Foto</a>
-                        <button class="btn-wa" onclick="shareResWhatsApp('${r.category}', '${r.text}', '${r.evidenceLink}')">💬 Notificar al Grupo</button>
-                    </div>
+                    <div class="res-actions"><a href="${r.evidenceLink}" target="_blank" class="btn-doc">📄 Abrir Archivo</a><button class="btn-wa" onclick="shareResWhatsApp('${r.category}', '${r.text}', '${r.evidenceLink}')">💬 Notificar al Grupo</button></div>
                 </div>`).join('');
         }
 
-        // --- SUPER Y GASTOS MANTIENEN LÓGICA PREVIA ---
-        function addSuper() {
-            const text = document.getElementById('supItem').value.trim();
-            if(!text) return;
-            supermarket.push({ id: 's_' + Date.now(), item: text, completed: false });
-            document.getElementById('supItem').value = ''; saveData();
+        // --- EQUIPAJE ---
+        function addPackItem() {
+            const item = document.getElementById('packItem').value.trim();
+            if(!item) return;
+            packing.push({ id: 'p_' + Date.now(), item: item, category: document.getElementById('packCategory').value, assignee: document.getElementById('packPerson').value, completed: false });
+            document.getElementById('packItem').value = ''; saveData();
         }
+        function togglePack(id) { const p = packing.find(x => x.id === id); if(p) { p.completed = !p.completed; saveData(); } }
+        function deletePack(id) { packing = packing.filter(p => p.id !== id); saveData(); }
+
+        function renderPacking() {
+            const container = document.getElementById('pack-content');
+            if(packing.length === 0) { container.innerHTML = `<p style="text-align:center; color:var(--text-light);">Lista de equipaje vacía.</p>`; return; }
+            const grouped = packing.reduce((acc, obj) => { acc[obj.category] = acc[obj.category] || []; acc[obj.category].push(obj); return acc; }, {});
+            
+            let html = '';
+            for (const category in grouped) {
+                html += `<div class="pack-cat">${category}</div>`;
+                grouped[category].forEach(p => {
+                    let assigneeBadge = p.assignee === 'Sin asignar' ? `<span class="badge" style="background:#FEF3C7; color:#D97706;">⚠️ Libre</span>` : `<span class="badge">👤 ${p.assignee}</span>`;
+                    html += `
+                    <div class="list-item ${p.completed ? 'completed' : ''}">
+                        <input type="checkbox" style="width:20px;height:20px;" ${p.completed ? 'checked' : ''} onchange="togglePack('${p.id}')">
+                        <span class="item-text" style="flex:1; font-weight:500;">${p.item}</span>
+                        ${assigneeBadge}
+                        <button class="btn-del" onclick="deletePack('${p.id}')">🗑️</button>
+                    </div>`;
+                });
+            }
+            container.innerHTML = html;
+        }
+
+        // --- SUPERMERCADO ---
+        function addSuper() { const t = document.getElementById('supItem').value.trim(); if(t) { supermarket.push({ id: 's_' + Date.now(), item: t, completed: false }); document.getElementById('supItem').value = ''; saveData(); } }
         function toggleSup(id) { const s = supermarket.find(x => x.id === id); if(s) { s.completed = !s.completed; saveData(); } }
         function deleteSup(id) { supermarket = supermarket.filter(s => s.id !== id); saveData(); }
-        
         function renderSuper() {
-            const container = document.getElementById('super-content');
-            container.innerHTML = supermarket.length === 0 ? '' : supermarket.map(s => `
-                <div style="display:flex; align-items:center; padding:12px 0; border-bottom:1px solid #eee; ${s.completed?'opacity:0.5; text-decoration:line-through;':''}">
-                    <input type="checkbox" style="margin-right:12px; width:20px;height:20px;" ${s.completed ? 'checked' : ''} onchange="toggleSup('${s.id}')">
-                    <span style="flex:1;">${s.item}</span>
+            document.getElementById('super-content').innerHTML = supermarket.length === 0 ? '' : supermarket.map(s => `
+                <div class="list-item ${s.completed ? 'completed' : ''}">
+                    <input type="checkbox" style="width:20px;height:20px;" ${s.completed ? 'checked' : ''} onchange="toggleSup('${s.id}')">
+                    <span class="item-text" style="flex:1;">${s.item}</span>
                     <button class="btn-del" onclick="deleteSup('${s.id}')">🗑️</button>
                 </div>`).join('');
         }
 
+        // --- GASTOS ---
         function addExpense() {
-            const concept = document.getElementById('expConcept').value.trim();
-            const amt = parseFloat(document.getElementById('expAmount').value);
-            const cur = document.getElementById('expCurrency').value;
+            const concept = document.getElementById('expConcept').value.trim(); const amt = parseFloat(document.getElementById('expAmount').value); const cur = document.getElementById('expCurrency').value;
             if(!concept || isNaN(amt)) return;
             expenses.push({ id: 'e_' + Date.now(), concept: concept, originalAmount: amt, currency: cur, amountUsd: cur === 'AWG' ? (amt / TASA_FLORIN) : amt, paidBy: document.getElementById('expPerson').value, date: new Date().toLocaleDateString() });
             document.getElementById('expConcept').value = ''; document.getElementById('expAmount').value = ''; saveData();
         }
         function deleteExp(id) { expenses = expenses.filter(e => e.id !== id); saveData(); }
-
         function renderExpenses() {
-            const list = document.getElementById('expenses-list');
-            list.innerHTML = expenses.map(e => `
+            document.getElementById('expenses-list').innerHTML = expenses.map(e => `
                 <div class="exp-item">
                     <div><strong>${e.concept}</strong><br><small>${e.date} • Pagó ${e.paidBy}</small></div>
                     <div style="font-weight:700;">${e.currency==='AWG'?`<small style="color:#888;">(${e.originalAmount} AWG)</small>`:''} $${e.amountUsd.toFixed(2)} <button class="btn-del" onclick="deleteExp('${e.id}')">🗑️</button></div>
@@ -316,8 +343,8 @@
             let b = { 'Daniel': 0, 'Carlos': 0, 'Miguel': 0, 'Desiree': 0 };
             expenses.forEach(e => { b[e.paidBy] += e.amountUsd; for (let p in b) b[p] -= (e.amountUsd / 4); });
             document.getElementById('balances-content').innerHTML = Object.keys(b).map(p => `
-                <div class="balance-card ${b[p] > 0.01 ? 'positive' : b[p] < -0.01 ? 'negative' : ''}">
-                    <div>${p}</div><div style="font-size:20px; font-weight:700; margin-top:4px;">${b[p] > 0.01 ? '+' : ''}$${b[p].toFixed(2)}</div>
+                <div class="balance-card ${b[p] > 0.01 ? 'positive' : b[p] < -0.01 ? 'negative' : ''}" style="${b[p] > 0.01 ? 'background:#F0FDF4;border-color:#BBF7D0;' : b[p] < -0.01 ? 'background:#FEF2F2;border-color:#FECACA;' : ''}">
+                    <div>${p}</div><div style="font-size:20px; font-weight:700; margin-top:4px; ${b[p] > 0.01 ? 'color:#166534;' : b[p] < -0.01 ? 'color:#991B1B;' : ''}">${b[p] > 0.01 ? '+' : ''}$${b[p].toFixed(2)}</div>
                 </div>`).join('');
         }
 
@@ -325,6 +352,7 @@
         function saveData() {
             localStorage.setItem('ar26_it', JSON.stringify(itinerary)); localStorage.setItem('ar26_res', JSON.stringify(reservations));
             localStorage.setItem('ar26_sup', JSON.stringify(supermarket)); localStorage.setItem('ar26_exp', JSON.stringify(expenses));
+            localStorage.setItem('ar26_pack', JSON.stringify(packing));
             renderAll(); syncWithCloud('POST');
         }
 
@@ -334,12 +362,13 @@
             status.innerHTML = '🟡 Guardando...';
             try {
                 if (method === 'POST') {
-                    await fetch(GAS_WEB_APP_URL, { method: 'POST', mode: 'no-cors', headers: {'Content-Type':'text/plain'}, body: JSON.stringify({ itinerary, reservations, supermarket, expenses }) });
+                    await fetch(GAS_WEB_APP_URL, { method: 'POST', mode: 'no-cors', headers: {'Content-Type':'text/plain'}, body: JSON.stringify({ itinerary, reservations, supermarket, expenses, packing }) });
                     status.innerHTML = '🟢 Sincronizado';
                 } else {
                     const res = await fetch(GAS_WEB_APP_URL); const data = await res.json();
                     if(data.itinerary) itinerary = data.itinerary; if(data.reservations) reservations = data.reservations;
                     if(data.supermarket) supermarket = data.supermarket; if(data.expenses) expenses = data.expenses;
+                    if(data.packing) packing = data.packing;
                     saveData(); status.innerHTML = '🟢 Sincronizado';
                 }
             } catch (e) { status.innerHTML = '🔴 Sin red'; }
